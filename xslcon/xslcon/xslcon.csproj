@@ -43,16 +43,25 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="xslt\api-member.xslt" />
-    <Content Include="xslt\api-names.xslt" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="xslt\api-member.xslt" />
+    <EmbeddedResource Include="xslt\api-names.xslt" />
     <Content Include="input\UI.XML" />
-    <Content Include="xslt\apihtml.xslt" />
-    <Content Include="xslt\myStyleSheet.xslt" />
+    <EmbeddedResource Include="xslt\apihtml.xslt" />
+    <EmbeddedResource Include="xslt\myStyleSheet.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="output\" />

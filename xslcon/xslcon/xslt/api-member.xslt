@@ -5,7 +5,11 @@
     <xsl:output method="text" indent="no" />
     <xsl:template match="/">
         <xsl:for-each select="doc/members/member">
-            <xsl:value-of select="@name"/>\n
+            Member: <xsl:value-of select="@name"/>\n
+            Summary: <xsl:value-of select="summary"/>\n
+            <xsl:for-each select="param">
+                <xsl:value-of select="param"/>\n
+            </xsl:for-each>            
         </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
