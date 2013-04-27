@@ -57,11 +57,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="xslt\api-member.xslt" />
-    <EmbeddedResource Include="xslt\api-names.xslt" />
     <Content Include="input\UI.XML" />
-    <EmbeddedResource Include="xslt\apihtml.xslt" />
-    <EmbeddedResource Include="xslt\myStyleSheet.xslt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="output\" />

@@ -75,11 +75,10 @@ namespace xslcon
                 from member in doc.Descendants("member")
                 select
                     new XElement("member",
-                                    member.Attribute("name"),
-                                    getName((string)member.Attribute("name")));
+                                    member.Attribute("name"));
+
             foreach (var result in query)
             {
-                //Console.WriteLine(result);
                 string n = result.Value.Replace(baseClass, "");
                 nameStack.Push(n);
             }
