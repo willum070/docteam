@@ -6,7 +6,7 @@
  * belonging to UI.ChronozoomSVC and magically convert it 
  * into Markdown. 
  * 
- * v.1 by William French
+ * v.2 by William French
  ******************************************************/
 
 using System;
@@ -16,6 +16,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Xml.Xsl;
 using System.IO;
@@ -36,20 +37,8 @@ namespace xslcon
             // In the Chronozoom project it is found here: \ChronoZoom\Source\Chronozoom.UI\bin
             string xmlpath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.UI\bin\UI.XML";
 
-            try
-            {
-                nameList = getNames(xmlpath);
-            }
-            catch (Exception e)
-            {
-                Console.Write("An exception occurred: " + e.Message);
-            }
-
-            if (nameList != null)
-            {
-                //string toc = makeToc(nameList);
-                getMember(baseClass + "Get", xmlpath);
-            }
+            //getMember(baseClass + "Get", xmlpath);
+            getNames(xmlpath);
         }
 
         // A first attempt at XSL transformation.
@@ -66,43 +55,55 @@ namespace xslcon
         // Uses XSLT to get the names and output as array.
         static string[] getNames(string path)
         {
-            // Load the XSL stuff.
-            XPathDocument myXPathDoc = new XPathDocument(path);
-            XslCompiledTransform myXslTrans = new XslCompiledTransform();
+            // Load the XML document.
+            XDocument doc = XDocument.Load(path);
 
-            // Load the XSL from its embedded resource.
-            using (StringReader srt = new StringReader(xslcon.Properties.Resources.api_names))
-            {
-                using (XmlReader xrt = XmlReader.Create(srt))
-                {
-                    myXslTrans.Load(xrt);
-                }
-            }
+            //XElement e = doc.Element("doc")
+            //                .Element("members")
+            //                .Element("member");
+            //Console.WriteLine("Customers has attributes? {0}", e.HasAttributes);
+            //Console.WriteLine(e.Attribute("name"));
 
-            // Or load the XSL manually.
-            //myXslTrans.Load(@"C:\Users\v-wfren\Documents\GitHub\docteam\xslcon\xslcon\xslt\api-names.xslt");
-
-            // Run the transform.
-            StringWriter sw = new StringWriter();
-            using (sw)
-            {
-                myXslTrans.Transform(myXPathDoc, null, sw);
-            }
-
-            // Use the regex to extract the members we want.
-            MatchCollection mc = nameRgx.Matches(sw.ToString());
-            
-            // Trim the base class name and stack it.
             Stack<string> nameStack = new Stack<string>();
-            foreach (Match m in mc)
+            //foreach (Match m in mc)
+            //{
+            //    string n = m.Value.Replace(baseClass, "");
+            //    nameStack.Push(n);
+            //}
+
+            var query =
+                from member in doc.Descendants("member")
+                select
+                    new XElement("member",
+                                    member.Attribute("name"),
+                                    getName((string)member.Attribute("name")));
+            foreach (var result in query)
             {
-                string n = m.Value.Replace(baseClass, "");
+                //Console.WriteLine(result);
+                string n = result.Value.Replace(baseClass, "");
                 nameStack.Push(n);
             }
 
             string[] nameArray = nameStack.ToArray();
             Array.Reverse(nameArray);
+
+            //string[] nameArray = new string[] { };
             return nameArray;
+        }
+
+        static string getName(string name)
+        {
+            Regex regex = new Regex(@"M:UI\.ChronozoomSVC\.\w*");
+            //return new XElement("isCorrectClass", regex.IsMatch(name));
+            if (regex.IsMatch(name))
+            {
+                string n = name.Replace(baseClass, "");
+                return name;
+            }
+            else
+            {
+                return "0";
+            }            
         }
 
         // Take a member name, get the data.
