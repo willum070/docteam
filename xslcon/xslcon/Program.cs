@@ -138,20 +138,32 @@ namespace xslcon
                 if (nameRgx.IsMatch(member.Attribute("name").Value))
                 {
                     sb.AppendLine("## " + cleanString(member.Attribute("name").Value) + " ##");
+                    sb.AppendLine(" ");
                     sb.AppendLine(member.XPathSelectElement("summary").Value.Trim());
-                    sb.AppendLine("**Example**");
-                    sb.AppendLine(member.XPathSelectElement("example").Value.Trim());
+                    sb.AppendLine(" ");
 
-                    //System.Xml.Linq.XElement p = member.Descendants("param");
+                    if (member.XPathSelectElement("returns") != null)
+                    {
+                        sb.AppendLine("**Returns**");
+                        sb.AppendLine(" ");
+                        sb.AppendLine(member.XPathSelectElement("returns").Value.Trim());
+                        sb.AppendLine(" ");
+                    }
+
+                    sb.AppendLine("**Example**");
+                    sb.AppendLine(" ");
+                    sb.AppendLine("    " + member.XPathSelectElement("example").Value.Trim());
+                    sb.AppendLine(" ");
 
                     var qParams =
                         from p in member.Descendants("param")
                         select
                             p;
 
-                    if (qParams.Count() == 0)
+                    if (qParams != null)
                     {
                         sb.AppendLine("**Parameters**");
+                        sb.AppendLine(" ");
                         sb.AppendLine("|Parameter|Value|");
                         sb.AppendLine("|:--------|:----|");
 
@@ -165,9 +177,12 @@ namespace xslcon
                         sb.AppendLine("**Parameters**");
                         sb.AppendLine("None.");
                     }
-                   
+
+                    sb.AppendLine(" ");
                     sb.AppendLine("[top](#chronozoom-rest-api-reference)");
                     sb.AppendLine("----------");
+                    sb.AppendLine(" ");
+
                 }
             }
 
