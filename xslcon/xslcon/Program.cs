@@ -96,6 +96,23 @@ namespace xslcon
             }
         }
 
+        // Clean up example code (extra spaces since they are in CDATA in the source).
+        private static string cleanExample(string ex)
+        {
+            string aLine, fullExample = "";
+            StringReader sr = new StringReader(ex);
+            while (true)
+            {
+                aLine = sr.ReadLine();
+                if (aLine != null)
+                    fullExample += aLine.Replace("             ", "    ") + "\n";
+                else
+                    return fullExample;
+            }
+
+            return fullExample;
+        }
+
         // Output a table of contents.
         static string makeToc(string[] input)
         {
@@ -145,14 +162,14 @@ namespace xslcon
                     if (member.XPathSelectElement("returns") != null)
                     {
                         sb.AppendLine("**Returns**");
-                        sb.AppendLine(" ");
                         sb.AppendLine(member.XPathSelectElement("returns").Value.Trim());
                         sb.AppendLine(" ");
                     }
 
                     sb.AppendLine("**Example**");
-                    sb.AppendLine(" ");
-                    sb.AppendLine("    " + member.XPathSelectElement("example").Value.Trim());
+                    string ex = member.XPathSelectElement("example").Value;
+                    ex = cleanExample(ex);
+                    sb.AppendLine(ex);
                     sb.AppendLine(" ");
 
                     var qParams =
@@ -160,7 +177,7 @@ namespace xslcon
                         select
                             p;
 
-                    if (qParams != null)
+                    if (qParams.Count() != 0)
                     {
                         sb.AppendLine("**Parameters**");
                         sb.AppendLine(" ");
@@ -180,6 +197,7 @@ namespace xslcon
 
                     sb.AppendLine(" ");
                     sb.AppendLine("[top](#chronozoom-rest-api-reference)");
+                    sb.AppendLine(" ");
                     sb.AppendLine("----------");
                     sb.AppendLine(" ");
 
