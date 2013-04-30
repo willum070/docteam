@@ -186,7 +186,7 @@ namespace xslcon
 
                         foreach (var param in qParams)
                         {
-                            sb.AppendLine("|" + param.Name + "|" + param.Value + "|");
+                            sb.AppendLine("|" + param.FirstAttribute.Value + "|" + param.Value + "|");
                         }
                     }
                     else
