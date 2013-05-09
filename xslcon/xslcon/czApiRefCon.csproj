@@ -57,9 +57,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="input\UI.XML" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="input\" />
     <Folder Include="output\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -144,11 +144,20 @@ namespace xslcon
                         {
                             sb.AppendLine("|" + param.FirstAttribute.Value + "|" + param.Value + "|");
                         }
+                        sb.AppendLine(" ");
                     }
                     else
                     {
                         sb.AppendLine("**Parameters**");
                         sb.AppendLine("None.");
+                        sb.AppendLine(" ");
+                    }
+
+                    if (member.XPathSelectElement("remarks") != null)
+                    {
+                        sb.AppendLine("**Remarks**");
+                        sb.AppendLine(member.XPathSelectElement("remarks").Value.Trim());
+                        sb.AppendLine(" ");
                     }
 
                     sb.AppendLine(" ");
