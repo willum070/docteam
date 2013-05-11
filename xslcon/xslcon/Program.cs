@@ -107,7 +107,7 @@ namespace xslcon
             // Add each member to the doc.
             foreach (var member in qMembers)
             {
-                    sb.AppendLine("## " + cleanString(member.Attribute("name").Value, memberClass) + " ##");
+                    sb.AppendLine("### " + cleanString(member.Attribute("name").Value, memberClass) + " ###");
                     sb.AppendLine(" ");
                     sb.AppendLine(member.XPathSelectElement("summary").Value.Trim());
                     sb.AppendLine(" ");
@@ -198,7 +198,7 @@ namespace xslcon
                     select
                         pmember;
 
-                sb.AppendLine("## " + nameString + " ##");
+                sb.AppendLine("### " + nameString + " ###");
                 sb.AppendLine(" ");
                 sb.AppendLine(member.Element("summary").Value.Trim());
                 sb.AppendLine(" ");
