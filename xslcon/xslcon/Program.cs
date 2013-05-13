@@ -29,8 +29,8 @@ namespace xslcon
     {
         // There must be a better way to do this.
         // Perhaps a configuration file with all paths and prefixes.
-        static string memberClass = "M:UI.ChronozoomSVC.";
-        static Regex memberRgx = new Regex(@"M:UI\.ChronozoomSVC\.\w*");
+        static string memberClass = "M:Chronozoom.UI.ChronozoomSVC.";
+        static Regex memberRgx = new Regex(@"M:Chronozoom\.UI\.ChronozoomSVC\.\w*");
 
         static string entityTypeClass = "T:Chronozoom.Entities.";
         static Regex entityTypeRgx = new Regex(@"T:Chronozoom\.Entities\.\w*");
@@ -40,7 +40,7 @@ namespace xslcon
 
         // This is the path to the VS doc XML file we are going to process.
         // In the Chronozoom project it is found here: \ChronoZoom\Source\Chronozoom.UI\bin
-        static string memberPath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.UI\bin\UI.XML";
+        static string memberPath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.UI\bin\Chronozoom.UI.XML";
         static string entityPath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.Entities\bin\Chronozoom.Entities.XML";
 
         static void Main(string[] args)
@@ -156,7 +156,7 @@ namespace xslcon
                     if (member.XPathSelectElement("remarks") != null)
                     {
                         sb.AppendLine("**Remarks**");
-                        sb.AppendLine(member.XPathSelectElement("remarks").Value.Trim());
+                        sb.AppendLine(cleanExample(member.XPathSelectElement("remarks").Value.Trim()));
                         sb.AppendLine(" ");
                     }
 
