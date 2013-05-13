@@ -6,12 +6,13 @@
  * belonging to UI.ChronozoomSVC and magically convert it 
  * into Markdown. 
  * 
- * v.2 by William French
+ * version 0.3 by William French
  ******************************************************/
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,21 +28,25 @@ namespace xslcon
 {
     class MDConverter
     {
-        // There must be a better way to do this.
-        // Perhaps a configuration file with all paths and prefixes.
-        static string memberClass = "M:Chronozoom.UI.ChronozoomSVC.";
-        static Regex memberRgx = new Regex(@"M:Chronozoom\.UI\.ChronozoomSVC\.\w*");
+        /* Prefixes, regexes and paths defined in settings.
+         * The prefixes are configurable since they could change.
+         * The regexes are also configurable and should match
+         * their corresponding member prefix string. */
+        static string memberClass = Properties.Settings.Default.MemberClass;
+        static Regex memberRgx = new Regex(Properties.Settings.Default.MemberRgx);
 
-        static string entityTypeClass = "T:Chronozoom.Entities.";
-        static Regex entityTypeRgx = new Regex(@"T:Chronozoom\.Entities\.\w*");
+        static string entityTypeClass = Properties.Settings.Default.EntityTypeClass;
+        static Regex entityTypeRgx = new Regex(Properties.Settings.Default.EntityTypeRgx);
 
-        static string entityPropClass = "P:Chronozoom.Entities.";
-        //static Regex entityPropRgx = new Regex(@"P:Chronozoom\.Entities\.\w*\.w*");
+        static string entityPropClass = Properties.Settings.Default.EntityPropClass;
 
         // This is the path to the VS doc XML file we are going to process.
         // In the Chronozoom project it is found here: \ChronoZoom\Source\Chronozoom.UI\bin
         static string memberPath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.UI\bin\Chronozoom.UI.XML";
         static string entityPath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.Entities\bin\Chronozoom.Entities.XML";
+
+        // The top portion of the document.
+        static string topMatter = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Doc\Chronozoom_REST_API_top.md";
 
         static void Main(string[] args)
         {
@@ -290,6 +295,13 @@ namespace xslcon
         static void makeDoc(string path)
         {
             StringBuilder sb = new StringBuilder();
+
+            // Add the top part of the doc.
+            using (StreamReader sr = new StreamReader(topMatter))
+            {
+                String line = sr.ReadToEnd();
+                sb.AppendLine(line);
+            }
 
             // Get the entity names and add the TOC.
             sb.AppendLine("## ChronoZoom Entities ##");
