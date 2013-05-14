@@ -87,5 +87,14 @@ namespace xslcon.Properties {
                 return ((string)(this["EntityPropClass"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\v-wfren\\Documents\\GitHub\\ChronoZoom\\Doc\\Chronozoom_REST_API_top.md")]
+        public string TopMatter {
+            get {
+                return ((string)(this["TopMatter"]));
+            }
+        }
     }
 }

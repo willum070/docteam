@@ -42,11 +42,11 @@ namespace xslcon
 
         // This is the path to the VS doc XML file we are going to process.
         // In the Chronozoom project it is found here: \ChronoZoom\Source\Chronozoom.UI\bin
-        static string memberPath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.UI\bin\Chronozoom.UI.XML";
-        static string entityPath = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.Entities\bin\Chronozoom.Entities.XML";
+        static string memberPath = Properties.Settings.Default.MemberPath;
+        static string entityPath = Properties.Settings.Default.EntityPath;
 
         // The top portion of the document.
-        static string topMatter = @"C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Doc\Chronozoom_REST_API_top.md";
+        static string topMatter = Properties.Settings.Default.TopMatter;
 
         static void Main(string[] args)
         {

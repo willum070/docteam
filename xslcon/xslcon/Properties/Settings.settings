@@ -23,5 +23,8 @@
     <Setting Name="EntityPropClass" Type="System.String" Scope="Application">
       <Value Profile="(Default)">P:Chronozoom.Entities.</Value>
     </Setting>
+    <Setting Name="TopMatter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Doc\Chronozoom_REST_API_top.md</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
