@@ -56,7 +56,7 @@ namespace xslcon
         // Run everything and output a file.
         static void generateMarkdown()
         {
-            if (memberPath != null)
+            if(File.Exists(memberPath))
             {
                 makeDoc(memberPath);
             }
@@ -323,7 +323,7 @@ namespace xslcon
             string members = getMembers(memberPath);
             sb.AppendLine(members);
 
-            using (StreamWriter outfile = new StreamWriter(@"ChronoZoom_REST_API.md"))
+            using (StreamWriter outfile = new StreamWriter(Properties.Settings.Default.OutFile))
             {
                 outfile.Write(sb.ToString());
             }

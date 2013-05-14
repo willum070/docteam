@@ -96,5 +96,14 @@ namespace xslcon.Properties {
                 return ((string)(this["TopMatter"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ChronoZoom_REST_API.md")]
+        public string OutFile {
+            get {
+                return ((string)(this["OutFile"]));
+            }
+        }
     }
 }
