@@ -99,7 +99,8 @@ namespace xslcon.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ChronoZoom_REST_API.md")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\v-wfren\\Documents\\GitHub\\docteam\\xslcon\\xslcon\\output\\ChronoZoom_REST_AP" +
+            "I.md")]
         public string OutFile {
             get {
                 return ((string)(this["OutFile"]));

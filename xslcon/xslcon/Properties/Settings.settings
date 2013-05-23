@@ -27,7 +27,7 @@
       <Value Profile="(Default)">C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Doc\Chronozoom_REST_API_top.md</Value>
     </Setting>
     <Setting Name="OutFile" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">ChronoZoom_REST_API.md</Value>
+      <Value Profile="(Default)">C:\Users\v-wfren\Documents\GitHub\docteam\xslcon\xslcon\output\ChronoZoom_REST_API.md</Value>
     </Setting>
   </Settings>
 </SettingsFile>
