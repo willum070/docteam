@@ -40,8 +40,7 @@ namespace xslcon
 
         static string entityPropClass = Properties.Settings.Default.EntityPropClass;
 
-        // This is the path to the VS doc XML file we are going to process.
-        // In the Chronozoom project it is found here: \ChronoZoom\Source\Chronozoom.UI\bin
+        // These are the paths to the VS doc XML files we are going to process.
         static string memberPath = Properties.Settings.Default.MemberPath;
         static string entityPath = Properties.Settings.Default.EntityPath;
 

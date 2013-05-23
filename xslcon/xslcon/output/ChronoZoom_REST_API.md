@@ -186,10 +186,39 @@ A registered user.
 
 ### GetTimelines ###
  
-Documentation under IChronozoomSVC
+Returns timeline data within a specified range of years from a collection or a superCollection.
+ 
+**Returns**
+Timeline data in JSON format.
+ 
+**Example**
+
+            HTTP verb: GET
+            URL:
+            http://[site URL]/api/[superCollectionName]/[collectionName]/timelines
+            Request body (JSON):
+            {
+            start: 1800
+            end: 1920
+            minspan:
+            lca:
+            maxElements: 25
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollection|Name of the superCollection to query.|
+|collection|Name of the collection to query.|
+|start|Year at which to begin the search, between -20000000000 and 9999.|
+|end|Year at which to end the search, between -20000000000 and 9999.|
+|minspan|Filters the search results to a particular time scale.|
+|commonAncestor|Least Common Ancestor, a timeline identifier used to hint the server to retrieve timelines close to this location.|
+|maxElements|The maximum number of elements to return.|
+|depth|The max depth for children timelines.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -198,10 +227,30 @@ None.
  
 ### Search ###
  
-Documentation under IChronozoomSVC
+Performs a search for a specific term within a collection or a superCollection.
+ 
+**Returns**
+Search results in JSON format.
+ 
+**Example**
+
+            HTTP verb: GET
+            URL:
+            http://[site URL]/api/[superCollectionName]/[collectionName]/search
+            Request body (JSON):
+            {
+            searchTerm: "Pluto"
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollection|Name of the superCollection to query.|
+|collection|Name of the collection to query.|
+|searchTerm|The term to search for.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -210,7 +259,18 @@ None.
  
 ### GetDefaultTours ###
  
-Documentation under IChronozoomSVC
+Returns a list of tours for the default collection and default superCollection.
+ 
+**Returns**
+A list of tours in JSON format.
+ 
+**Example**
+
+            HTTP verb: GET
+            URL:
+            http://[site URL]/api/tours
+            
+
  
 **Parameters**
 None.
@@ -222,10 +282,25 @@ None.
  
 ### GetTours ###
  
-Documentation under IChronozoomSVC
+Returns a list of tours for a given collection or superCollection.
+ 
+**Returns**
+A list of tours in JSON format.
+ 
+**Example**
+
+            HTTP verb: GET
+            URL:
+            http://[site URL]/api/[superCollectionName]/[collectionName]/tours
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollection|Name of the superCollection to query.|
+|collection|Name of the collection to query.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -234,10 +309,41 @@ None.
  
 ### PutUser ###
  
-Documentation under IChronozoomSVC
+Creates a new user, or updates an existing user's information and associated personal collection.
+ 
+**Returns**
+The URL for the new user collection.
+ 
+**Example**
+
+            HTTP verb: PUT
+            URL:
+            http://[site URL]/api/[superCollectionName]/[collectionName]/user
+            Request body (JSON):
+            {
+            id: "0123456789",
+            displayName: "Joe",
+            email: "email@email.com"
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|userRequest|JSON containing the request details.|
+ 
+**Remarks**
+If the user ID is omitted then a new user is created.
+            If there is no ACS the user is treated as anonymous and granted access to the sandbox collection.
+            If the anonymous user does not exist in the database then it is created.
+            A new superCollection with the user's display name is added.
+            A new default collection with the user's display name is added to this superCollection.
+            A new user with the specified attributes is created.
+            If the specified user display name does not exist it is considered an error.
+            If the user display name is specified and it exists then the user's attributes are updated.
+
  
  
 [top](#chronozoom-rest-api-reference)
@@ -246,7 +352,10 @@ None.
  
 ### GetServiceInformation ###
  
-Documentation under IChronozoomSVC
+Internal. Provides information about the ChronoZoom service to clients.
+ 
+**Returns**
+A ServiceInformation object describing parameter from the running service.
  
 **Parameters**
 None.
@@ -258,10 +367,25 @@ None.
  
 ### DeleteUser ###
  
-Documentation under IChronozoomSVC
+Deletes the user with the specified user ID.
+ 
+**Example**
+
+            HTTP verb: DELETE
+            URL:
+            http://{site URL}/chronozoom.svc/{supercollection}/{collection}/user
+            Request body (JSON):
+            {
+            id: "0123456789"
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|userRequest|JSON containing the request details.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -270,7 +394,10 @@ None.
  
 ### GetUser ###
  
-Documentation under IChronozoomSVC
+Gets the User object instance for the current user.
+ 
+**Returns**
+User object instance.
  
 **Parameters**
 None.
@@ -282,10 +409,37 @@ None.
  
 ### PutCollectionName ###
  
-Documentation under IChronozoomSVC
+Creates a new collection using the specified name.
+ 
+**Returns**
+
+ 
+**Example**
+
+            HTTP verb: PUT
+            URL:
+            http://{site URL}/chronozoom.svc/{superCollectionName}/{collectionName}
+            Request body (JSON):
+            {
+            name: "My Collection"
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The name of the parent superCollection for the collection.|
+|collectionName|The name of the collection to create.|
+|collectionRequest|The markup for the collection to create in JSON format.|
+ 
+**Remarks**
+If a collection of the specified name does not exist then a new collection is created.
+            If the collection exists and the authenticated user is the author then the collection is modified.
+            If no author is registered then the authenticated user is set as the author.
+            The title field can't be modified because it is part of the URL (the URL can be indexed).
+
  
  
 [top](#chronozoom-rest-api-reference)
@@ -294,10 +448,22 @@ None.
  
 ### DeleteCollection ###
  
-Documentation under IChronozoomSVC
+Deletes the specified collection.
+ 
+**Example**
+
+            HTTP verb: DELETE
+            URL:
+            http://{site URL}/chronozoom.svc/{superCollectionName}/{collectionName}
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The name of the parent collection.|
+|collectionName|The name of the collection to delete.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -306,10 +472,38 @@ None.
  
 ### PutTimeline ###
  
-Documentation under IChronozoomSVC
+Creates or updates the timeline in a given collection.
+ 
+**Returns**
+HTTP status code.
+ 
+**Example**
+
+            HTTP verb: PUT
+            URL:
+            http://[site URL]/api/[superCollectionName]/[collectionName]/timeline
+            Request body (JSON):
+            {
+            id: "0123456789"
+            title: "A New Title"
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The parent collection.|
+|collectionName|The name of the collection to update.|
+|timelineRequest|Timeline data in JSON format.|
+ 
+**Remarks**
+If an ID is specified but the collection does not exist, the request will fail ("not found" status).
+            If an ID is not specified, a new timeline will be added to the collection.
+            For a new timeline, if the parent is not defined the root timeline will be set as the parent.
+            If the timeline with the specified identifier exists, then the existing timeline is updated.
+
  
  
 [top](#chronozoom-rest-api-reference)
@@ -318,10 +512,27 @@ None.
  
 ### DeleteTimeline ###
  
-Documentation under IChronozoomSVC
+Deletes the timeline with the specified ID.
+ 
+**Example**
+
+            HTTP verb: DELETE
+            URL:
+            http://[site URL]/api/[superCollectionName]/[collectionName]/timeline
+            Request body (JSON):
+            {
+            timelineRequest: Need request body format.
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The name of the parent collection.|
+|collectionName|The name of the collection from which the timeline should be deleted.|
+|timelineRequest|The request in JSON format.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -330,10 +541,38 @@ None.
  
 ### PutExhibit ###
  
-Documentation under IChronozoomSVC
+Creates or updates the exhibit and its content items in a given collection. If the collection does not exist, then the command will silently fail.
+ 
+**Returns**
+An exhibit in JSON format.
+ 
+**Example**
+
+            **HTTP verb:** PUT
+            **URL:**
+            http://[site URL]/api/[superCollectionName]/[collectionName]/exhibit
+            **Request body:**
+            {
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The name of the parent collection.|
+|collectionName|The name of the collection to modify.|
+|exhibitRequest|The exhibit data in JSON format.|
+ 
+**Remarks**
+If an exhibit id is not specified, a new exhibit is added to the collection.
+            If the ID for an existing exhibit is specified then the exhibit will be updated.
+            If the exhibit ID to be updated does not exist a "not found" status is returned.
+            If the parent timeline is not specified the exhibit is added to the root timeline.
+            Otherwise, the exhibit is added to the specified parent timeline.
+            If an invalid parent timeline is specified then the request will fail.
+
  
  
 [top](#chronozoom-rest-api-reference)
@@ -342,10 +581,27 @@ None.
  
 ### DeleteExhibit ###
  
-Documentation under IChronozoomSVC
+Deletes the specified exhibit from the specified collection.
+ 
+**Example**
+
+            **HTTP verb:** DELETE
+            **URL:**
+            http://[site URL]/api/[superCollectionName]/[collectionName]/exhibit
+            **Request body:**
+            {
+            id: "0123456789"
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The name of the parent collection.|
+|collectionName|The name of the collection to modify.|
+|exhibitRequest|The exhibit ID in JSON format.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -354,10 +610,29 @@ None.
  
 ### PutContentItem ###
  
-Documentation under IChronozoomSVC
+Creates or updates the content item in a given collection. If the collection does not exist the request will fail.
+ 
+**Returns**
+
+ 
+**Example**
+
+            **HTTP verb:** PUT
+            **URL:**
+            http://[site URL]/api/[superCollectionName]/[collectionName]/contentitem
+            **Request body:**
+            {
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The name of the parent collection.|
+|collectionName|The name of the collection to modify.|
+|contentItemRequest|The content item data in JSON format.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -366,10 +641,27 @@ None.
  
 ### DeleteContentItem ###
  
-Documentation under IChronozoomSVC
+Delete the specified content item from the specified collection.
+ 
+**Example**
+
+            **HTTP verb:** DELETE
+            **URL:**
+            http://[site URL]/api/[superCollectionName]/[collectionName]/contentitem
+            **Request body:**
+            {
+            id: "0123456789"
+            }
+            
+
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollectionName|The name of the parent collection.|
+|collectionName|The name of the collection to modify.|
+|contentItemRequest|The request in JSON format.|
  
  
 [top](#chronozoom-rest-api-reference)
@@ -378,10 +670,19 @@ None.
  
 ### GetContentPath ###
  
-Documentation under IChronozoomSVC
+Retrieves a path to the given content id.
+            For t48fbb8a8-7c5d-49c3-83e1-98939ae2ae6, this API retrieves /t00000000-0000-0000-0000-000000000000/t48fbb8a8-7c5d-49c3-83e1-98939ae2ae67
+ 
+**Returns**
+The full path to the content
  
 **Parameters**
-None.
+ 
+|Parameter|Value|
+|:--------|:----|
+|superCollection||
+|collection||
+|reference||
  
  
 [top](#chronozoom-rest-api-reference)
@@ -390,7 +691,26 @@ None.
  
 ### GetCollections ###
  
-Documentation under IChronozoomSVC
+Retrieve the list of all collections.
+ 
+**Returns**
+
+ 
+**Example**
+
+            **HTTP verb:** GET
+            **URL:**
+            http://[site URL]/api/collections
+            **Request body:**
+            {
+            name: "Super Collection",
+       collection: [
+           { name: "Collection 1" },
+           { name: "Collection 2" },
+       ]
+            }
+            
+
  
 **Parameters**
 None.
