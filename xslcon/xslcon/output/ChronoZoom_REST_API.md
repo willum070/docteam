@@ -172,7 +172,6 @@ A registered user.
 - [PutUser](#putuser)
 - [GetServiceInformation](#getserviceinformation)
 - [DeleteUser](#deleteuser)
-- [GetUser](#getuser)
 - [PutCollectionName](#putcollectionname)
 - [DeleteCollection](#deletecollection)
 - [PutTimeline](#puttimeline)
@@ -192,19 +191,21 @@ Returns timeline data within a specified range of years from a collection or a s
 Timeline data in JSON format.
  
 **Example**
-
-            HTTP verb: GET
-            URL:
-            http://[site URL]/api/[superCollectionName]/[collectionName]/timelines
-            Request body (JSON):
-            {
-            start: 1800
-            end: 1920
-            minspan:
-            lca:
-            maxElements: 25
-            }
+ 
+    HTTP verb: GET
             
+    URL:
+    http://[site URL]/api/[superCollectionName]/[collectionName]/timelines
+            
+    Request body (JSON):
+    {
+       start: 1800
+       end: 1920
+       minspan: 
+       lca: 
+       maxElements: 25
+    }
+    
 
  
 **Parameters**
@@ -233,15 +234,17 @@ Performs a search for a specific term within a collection or a superCollection.
 Search results in JSON format.
  
 **Example**
-
-            HTTP verb: GET
-            URL:
-            http://[site URL]/api/[superCollectionName]/[collectionName]/search
-            Request body (JSON):
-            {
-            searchTerm: "Pluto"
-            }
+ 
+    HTTP verb: GET
             
+    URL:
+    http://[site URL]/api/[superCollectionName]/[collectionName]/search
+            
+    Request body (JSON):
+    {
+       searchTerm: "Pluto"
+    }
+    
 
  
 **Parameters**
@@ -265,11 +268,12 @@ Returns a list of tours for the default collection and default superCollection.
 A list of tours in JSON format.
  
 **Example**
-
-            HTTP verb: GET
-            URL:
-            http://[site URL]/api/tours
+ 
+    HTTP verb: GET
             
+    URL: 
+    http://[site URL]/api/tours
+    
 
  
 **Parameters**
@@ -288,11 +292,12 @@ Returns a list of tours for a given collection or superCollection.
 A list of tours in JSON format.
  
 **Example**
-
-            HTTP verb: GET
-            URL:
-            http://[site URL]/api/[superCollectionName]/[collectionName]/tours
+ 
+    HTTP verb: GET
             
+    URL: 
+    http://[site URL]/api/[superCollectionName]/[collectionName]/tours
+    
 
  
 **Parameters**
@@ -315,17 +320,19 @@ Creates a new user, or updates an existing user's information and associated per
 The URL for the new user collection.
  
 **Example**
-
-            HTTP verb: PUT
-            URL:
-            http://[site URL]/api/[superCollectionName]/[collectionName]/user
-            Request body (JSON):
-            {
-            id: "0123456789",
-            displayName: "Joe",
-            email: "email@email.com"
-            }
+ 
+    HTTP verb: PUT
             
+    URL:
+    http://[site URL]/api/[superCollectionName]/[collectionName]/user
+    
+    Request body (JSON):
+    {
+        id: "0123456789",
+        displayName: "Joe",
+        email: "email@email.com"
+    }
+    
 
  
 **Parameters**
@@ -336,13 +343,14 @@ The URL for the new user collection.
  
 **Remarks**
 If the user ID is omitted then a new user is created.
-            If there is no ACS the user is treated as anonymous and granted access to the sandbox collection.
-            If the anonymous user does not exist in the database then it is created.
-            A new superCollection with the user's display name is added.
-            A new default collection with the user's display name is added to this superCollection.
-            A new user with the specified attributes is created.
-            If the specified user display name does not exist it is considered an error.
-            If the user display name is specified and it exists then the user's attributes are updated.
+    If there is no ACS the user is treated as anonymous and granted access to the sandbox collection.
+    If the anonymous user does not exist in the database then it is created.
+    A new superCollection with the user's display name is added.
+    A new default collection with the user's display name is added to this superCollection.
+    A new user with the specified attributes is created.
+            
+    If the specified user display name does not exist it is considered an error.
+    If the user display name is specified and it exists then the user's attributes are updated.
 
  
  
@@ -352,10 +360,10 @@ If the user ID is omitted then a new user is created.
  
 ### GetServiceInformation ###
  
-Internal. Provides information about the ChronoZoom service to clients.
+Provides information about the ChronoZoom service to the clients. Used internally by the ChronoZoom client.
  
 **Returns**
-A ServiceInformation object describing parameter from the running service.
+A ServiceInformation object describing parameter from the running service
  
 **Parameters**
 None.
@@ -369,14 +377,18 @@ None.
  
 Deletes the user with the specified user ID.
  
+**Returns**
+HTTP response code.
+ 
 **Example**
-
+ 
             HTTP verb: DELETE
             URL:
             http://{site URL}/chronozoom.svc/{supercollection}/{collection}/user
+            
             Request body (JSON):
             {
-            id: "0123456789"
+       id: "0123456789"
             }
             
 
@@ -386,21 +398,6 @@ Deletes the user with the specified user ID.
 |Parameter|Value|
 |:--------|:----|
 |userRequest|JSON containing the request details.|
- 
- 
-[top](#chronozoom-rest-api-reference)
- 
-----------
- 
-### GetUser ###
- 
-Gets the User object instance for the current user.
- 
-**Returns**
-User object instance.
- 
-**Parameters**
-None.
  
  
 [top](#chronozoom-rest-api-reference)
@@ -415,15 +412,17 @@ Creates a new collection using the specified name.
 
  
 **Example**
-
-            HTTP verb: PUT
-            URL:
-            http://{site URL}/chronozoom.svc/{superCollectionName}/{collectionName}
-            Request body (JSON):
-            {
-            name: "My Collection"
-            }
+ 
+    HTTP verb: PUT
             
+    URL:
+    http://{site URL}/chronozoom.svc/{superCollectionName}/{collectionName}
+            
+    Request body (JSON):
+    {
+         name: "My Collection"
+    }
+    
 
  
 **Parameters**
@@ -435,10 +434,10 @@ Creates a new collection using the specified name.
 |collectionRequest|The markup for the collection to create in JSON format.|
  
 **Remarks**
-If a collection of the specified name does not exist then a new collection is created.
-            If the collection exists and the authenticated user is the author then the collection is modified.
-            If no author is registered then the authenticated user is set as the author.
-            The title field can't be modified because it is part of the URL (the URL can be indexed).
+If a collection of the specified name does not exist then a new collection is created. 
+    If the collection exists and the authenticated user is the author then the collection is modified. 
+    If no author is registered then the authenticated user is set as the author. 
+    The title field can't be modified because it is part of the URL (the URL can be indexed).
 
  
  
@@ -450,12 +449,16 @@ If a collection of the specified name does not exist then a new collection is cr
  
 Deletes the specified collection.
  
+**Returns**
+HTTP response code.
+ 
 **Example**
-
-            HTTP verb: DELETE
-            URL:
-            http://{site URL}/chronozoom.svc/{superCollectionName}/{collectionName}
+ 
+    HTTP verb: DELETE
             
+    URL:
+    http://{site URL}/chronozoom.svc/{superCollectionName}/{collectionName}
+    
 
  
 **Parameters**
@@ -478,16 +481,18 @@ Creates or updates the timeline in a given collection.
 HTTP status code.
  
 **Example**
-
-            HTTP verb: PUT
-            URL:
-            http://[site URL]/api/[superCollectionName]/[collectionName]/timeline
-            Request body (JSON):
-            {
-            id: "0123456789"
-            title: "A New Title"
-            }
+ 
+    HTTP verb: PUT
             
+    URL:
+    http://[site URL]/api/[superCollectionName]/[collectionName]/timeline
+            
+    Request body (JSON):
+    {
+         id: "0123456789"
+         title: "A New Title"
+    }
+    
 
  
 **Parameters**
@@ -500,9 +505,9 @@ HTTP status code.
  
 **Remarks**
 If an ID is specified but the collection does not exist, the request will fail ("not found" status).
-            If an ID is not specified, a new timeline will be added to the collection.
-            For a new timeline, if the parent is not defined the root timeline will be set as the parent.
-            If the timeline with the specified identifier exists, then the existing timeline is updated.
+    If an ID is not specified, a new timeline will be added to the collection. 
+    For a new timeline, if the parent is not defined the root timeline will be set as the parent.
+    If the timeline with the specified identifier exists, then the existing timeline is updated.
 
  
  
@@ -515,15 +520,17 @@ If an ID is specified but the collection does not exist, the request will fail (
 Deletes the timeline with the specified ID.
  
 **Example**
-
-            HTTP verb: DELETE
-            URL:
-            http://[site URL]/api/[superCollectionName]/[collectionName]/timeline
-            Request body (JSON):
-            {
-            timelineRequest: Need request body format.
-            }
+ 
+    HTTP verb: DELETE
             
+    URL:
+    http://[site URL]/api/[superCollectionName]/[collectionName]/timeline
+            
+    Request body (JSON):
+    {
+         timelineRequest: Need request body format.
+    }
+    
 
  
 **Parameters**
@@ -547,14 +554,17 @@ Creates or updates the exhibit and its content items in a given collection. If t
 An exhibit in JSON format.
  
 **Example**
-
-            **HTTP verb:** PUT
-            **URL:**
-            http://[site URL]/api/[superCollectionName]/[collectionName]/exhibit
-            **Request body:**
-            {
-            }
+ 
+    **HTTP verb:** PUT
             
+    **URL:**
+        http://[site URL]/api/[superCollectionName]/[collectionName]/exhibit
+            
+    **Request body:**
+        {
+             
+        }
+    
 
  
 **Parameters**
@@ -566,12 +576,12 @@ An exhibit in JSON format.
 |exhibitRequest|The exhibit data in JSON format.|
  
 **Remarks**
-If an exhibit id is not specified, a new exhibit is added to the collection.
-            If the ID for an existing exhibit is specified then the exhibit will be updated.
-            If the exhibit ID to be updated does not exist a "not found" status is returned.
-            If the parent timeline is not specified the exhibit is added to the root timeline.
-            Otherwise, the exhibit is added to the specified parent timeline.
-            If an invalid parent timeline is specified then the request will fail.
+If an exhibit id is not specified, a new exhibit is added to the collection. 
+    If the ID for an existing exhibit is specified then the exhibit will be updated. 
+    If the exhibit ID to be updated does not exist a "not found" status is returned. 
+    If the parent timeline is not specified the exhibit is added to the root timeline. 
+    Otherwise, the exhibit is added to the specified parent timeline. 
+    If an invalid parent timeline is specified then the request will fail.
 
  
  
@@ -584,15 +594,17 @@ If an exhibit id is not specified, a new exhibit is added to the collection.
 Deletes the specified exhibit from the specified collection.
  
 **Example**
-
-            **HTTP verb:** DELETE
-            **URL:**
-            http://[site URL]/api/[superCollectionName]/[collectionName]/exhibit
-            **Request body:**
-            {
-            id: "0123456789"
-            }
+ 
+    **HTTP verb:** DELETE
             
+    **URL:**
+        http://[site URL]/api/[superCollectionName]/[collectionName]/exhibit
+            
+    **Request body:**
+        {
+             id: "0123456789"
+        }
+    
 
  
 **Parameters**
@@ -616,14 +628,17 @@ Creates or updates the content item in a given collection. If the collection doe
 
  
 **Example**
-
-            **HTTP verb:** PUT
-            **URL:**
-            http://[site URL]/api/[superCollectionName]/[collectionName]/contentitem
-            **Request body:**
-            {
-            }
+ 
+    **HTTP verb:** PUT
             
+    **URL:**
+        http://[site URL]/api/[superCollectionName]/[collectionName]/contentitem
+            
+    **Request body:**
+        {
+             
+        }
+    
 
  
 **Parameters**
@@ -644,15 +659,17 @@ Creates or updates the content item in a given collection. If the collection doe
 Delete the specified content item from the specified collection.
  
 **Example**
-
-            **HTTP verb:** DELETE
-            **URL:**
-            http://[site URL]/api/[superCollectionName]/[collectionName]/contentitem
-            **Request body:**
-            {
-            id: "0123456789"
-            }
+ 
+    **HTTP verb:** DELETE
             
+    **URL:**
+        http://[site URL]/api/[superCollectionName]/[collectionName]/contentitem
+            
+    **Request body:**
+        {
+             id: "0123456789"
+        }
+    
 
  
 **Parameters**
@@ -671,18 +688,14 @@ Delete the specified content item from the specified collection.
 ### GetContentPath ###
  
 Retrieves a path to the given content id.
+            
             For t48fbb8a8-7c5d-49c3-83e1-98939ae2ae6, this API retrieves /t00000000-0000-0000-0000-000000000000/t48fbb8a8-7c5d-49c3-83e1-98939ae2ae67
  
 **Returns**
 The full path to the content
  
 **Parameters**
- 
-|Parameter|Value|
-|:--------|:----|
-|superCollection||
-|collection||
-|reference||
+None.
  
  
 [top](#chronozoom-rest-api-reference)
@@ -693,23 +706,21 @@ The full path to the content
  
 Retrieve the list of all collections.
  
-**Returns**
-
- 
 **Example**
-
-            **HTTP verb:** GET
-            **URL:**
-            http://[site URL]/api/collections
-            **Request body:**
-            {
-            name: "Super Collection",
-       collection: [
-           { name: "Collection 1" },
-           { name: "Collection 2" },
-       ]
-            }
+ 
+    **HTTP verb:** GET
             
+    **URL:**
+        http://[site URL]/api/collections
+                 /// **Request body:**
+        {
+             name: "Super Collection",
+             collection: [
+                { name: "Collection 1" },
+                { name: "Collection 2" },
+             ]
+        }
+    
 
  
 **Parameters**

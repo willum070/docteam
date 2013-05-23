@@ -9,10 +9,10 @@
       <Value Profile="(Default)">C:\Users\v-wfren\Documents\GitHub\ChronoZoom\Source\Chronozoom.Entities\bin\Chronozoom.Entities.XML</Value>
     </Setting>
     <Setting Name="MemberClass" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">M:Chronozoom.UI.ChronozoomSVC.</Value>
+      <Value Profile="(Default)">M:Chronozoom.UI.IChronozoomSVC.</Value>
     </Setting>
     <Setting Name="MemberRgx" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">M:Chronozoom\.UI\.ChronozoomSVC\.\w*</Value>
+      <Value Profile="(Default)">M:Chronozoom\.UI\.IChronozoomSVC\.\w*</Value>
     </Setting>
     <Setting Name="EntityTypeClass" Type="System.String" Scope="Application">
       <Value Profile="(Default)">T:Chronozoom.Entities.</Value>

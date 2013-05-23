@@ -45,7 +45,7 @@ namespace xslcon.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("M:Chronozoom.UI.ChronozoomSVC.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("M:Chronozoom.UI.IChronozoomSVC.")]
         public string MemberClass {
             get {
                 return ((string)(this["MemberClass"]));
@@ -54,7 +54,7 @@ namespace xslcon.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("M:Chronozoom\\.UI\\.ChronozoomSVC\\.\\w*")]
+        [global::System.Configuration.DefaultSettingValueAttribute("M:Chronozoom\\.UI\\.IChronozoomSVC\\.\\w*")]
         public string MemberRgx {
             get {
                 return ((string)(this["MemberRgx"]));
