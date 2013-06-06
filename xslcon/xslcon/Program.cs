@@ -238,6 +238,10 @@ namespace xslcon
                 }
 
                 sb.AppendLine(" ");
+                sb.AppendLine("[top](#chronozoom-rest-api-reference)");
+                sb.AppendLine(" ");
+                sb.AppendLine("----------");
+                sb.AppendLine(" ");
             }
 
             return sb.ToString();
