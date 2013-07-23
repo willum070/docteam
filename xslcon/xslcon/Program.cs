@@ -23,6 +23,7 @@ using System.Xml.Xsl;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Collections.Specialized;
 
 namespace xslcon
 {
@@ -34,6 +35,8 @@ namespace xslcon
          * their corresponding member prefix string. */
         static string memberClass = Properties.Settings.Default.MemberClass;
         static Regex memberRgx = new Regex(Properties.Settings.Default.MemberRgx);
+
+        static StringCollection paramBase = Properties.Settings.Default.ParamBase;
 
         static string entityTypeClass = Properties.Settings.Default.EntityTypeClass;
         static Regex entityTypeRgx = new Regex(Properties.Settings.Default.EntityTypeRgx);
@@ -61,38 +64,6 @@ namespace xslcon
             }
         }
 
-        // Uses Linq to get the names and output as array.
-        static string[] getNames(string path, Regex rgx, string repl)
-        {
-            // Load the XML document.
-            XDocument doc = XDocument.Load(path);
-
-            // Create the stack to hold the names.
-            Stack<string> nameStack = new Stack<string>();
-
-            // Get all of the names.
-            var query =
-                from member in doc.Descendants("member")
-                select
-                    new XElement("member",
-                                    member.Attribute("name").Value);
-
-            // Filter and clean the strings.
-            foreach (var member in query)
-            {
-                if (rgx.IsMatch(member.Value))
-                {
-                    string n = cleanString(member.Value, repl);
-                    nameStack.Push(n);
-                }
-            }
-
-            // Make array, flip values and output.
-            string[] nameArray = nameStack.ToArray();
-            Array.Reverse(nameArray);
-            return nameArray;
-        }
-
         // Get all of the members and return MarkDown.
         static string getMembers(string path)
         {
@@ -111,7 +82,7 @@ namespace xslcon
             // Add each member to the doc.
             foreach (var member in qMembers)
             {
-                    sb.AppendLine("### " + cleanString(member.Attribute("name").Value, memberClass) + " ###");
+                    sb.AppendLine("### " + cleanStringParams(member.Attribute("name").Value, memberClass, paramBase) + " ###");
                     sb.AppendLine(" ");
                     sb.AppendLine(member.XPathSelectElement("summary").Value.Trim());
                     sb.AppendLine(" ");
@@ -175,92 +146,157 @@ namespace xslcon
         }
 
         // Get all of the entities and return MarkDown.
-        static string getEntities(string path)
+        //static string getEntities(string path)
+        //{
+        //    // Load the XML document.
+        //    XDocument doc = XDocument.Load(path);
+
+        //    StringBuilder sb = new StringBuilder();
+
+        //    // Get all of the entities.
+        //    var qEntityTypes =
+        //        from member in doc.Descendants("member")
+        //        where (entityTypeRgx.IsMatch(member.Attribute("name").Value))
+        //        select
+        //            member;
+
+        //    foreach (var member in qEntityTypes)
+        //    {
+        //        string nameString = cleanString(member.Attribute("name").Value, entityTypeClass);
+
+        //        //@"P:Chronozoom\.Entities\.Bookmark\.\w*"
+        //        Regex entityPropRgx = new Regex(@"P:Chronozoom\.Entities\." + nameString + @"\.\w*");
+
+        //        var qEntityProps =
+        //            from pmember in doc.Descendants("member")
+        //            where (entityPropRgx.IsMatch(pmember.Attribute("name").Value))
+        //            select
+        //                pmember;
+
+        //        sb.AppendLine("### " + nameString + " ###");
+        //        sb.AppendLine(" ");
+        //        sb.AppendLine(member.Element("summary").Value.Trim());
+        //        sb.AppendLine(" ");
+
+        //        var qParams =
+        //            from p in member.Descendants("param")
+        //            select
+        //            p;
+
+        //        if (qParams.Count() != 0)
+        //        {
+        //            sb.AppendLine("|Enum|Value|");
+        //            sb.AppendLine("|:--------|:----|");
+
+        //            foreach (var param in qParams)
+        //            {
+        //                sb.AppendLine("|" + cleanString(param.FirstAttribute.Value, entityPropClass + nameString) + "|" + param.Value + "|");
+        //            }
+        //        }
+
+        //        if (qEntityProps.Count() != 0)
+        //        {
+        //            sb.AppendLine("|Property|Value|");
+        //            sb.AppendLine("|:-------|:----|");
+
+
+        //            foreach (var prop in qEntityProps)
+        //            {
+        //                // P:Chronozoom.Entities.[member].[prop]
+        //                string propName = cleanString(prop.FirstAttribute.Value, entityPropClass + nameString + ".");
+        //                sb.AppendLine("|" + propName + "|" + prop.Value.Trim() + "|");
+        //            }
+        //        }
+
+        //        //sb.AppendLine(" ");
+        //        //sb.AppendLine("[top](#chronozoom-rest-api-reference)");
+        //        sb.AppendLine(" ");
+        //        sb.AppendLine("----------");
+        //        sb.AppendLine(" ");
+        //    }
+
+        //    return sb.ToString();
+        //}
+
+        // Uses Linq to get the names and output as array.
+        
+        static string makeToc(string path, Regex rgx, string repl)
         {
+            // Todo: Now navigation is broken. Re-do this so that we are inserting JQuery to autogenerate a TOC. 
+            // instead of this function.
+
             // Load the XML document.
             XDocument doc = XDocument.Load(path);
 
             StringBuilder sb = new StringBuilder();
 
-            // Get all of the entities.
-            var qEntityTypes =
+            // Get all of the names.
+            var query =
                 from member in doc.Descendants("member")
-                where (entityTypeRgx.IsMatch(member.Attribute("name").Value))
                 select
-                    member;
+                    new XElement("member",
+                                    member.Attribute("name").Value);
 
-            foreach (var member in qEntityTypes)
+            
+            // Filter and clean the strings.
+            foreach (var member in query)
             {
-                string nameString = cleanString(member.Attribute("name").Value, entityTypeClass);
-
-                //@"P:Chronozoom\.Entities\.Bookmark\.\w*"
-                Regex entityPropRgx = new Regex(@"P:Chronozoom\.Entities\." + nameString + @"\.\w*");
-
-                var qEntityProps =
-                    from pmember in doc.Descendants("member")
-                    where (entityPropRgx.IsMatch(pmember.Attribute("name").Value))
-                    select
-                        pmember;
-
-                sb.AppendLine("### " + nameString + " ###");
-                sb.AppendLine(" ");
-                sb.AppendLine(member.Element("summary").Value.Trim());
-                sb.AppendLine(" ");
-
-                var qParams =
-                    from p in member.Descendants("param")
-                    select
-                    p;
-
-                if (qParams.Count() != 0)
+                if (rgx.IsMatch(member.Value))
                 {
-                    sb.AppendLine("|Enum|Value|");
-                    sb.AppendLine("|:--------|:----|");
-
-                    foreach (var param in qParams)
-                    {
-                        sb.AppendLine("|" + cleanString(param.FirstAttribute.Value, entityPropClass + nameString) + "|" + param.Value + "|");
-                    }
+                    string nDisp = cleanStringParams(member.Value, repl, paramBase);
+                    string nLink = cleanString(member.Value, repl);
+                    string tocLine = "- [" + nDisp + "](#" + nLink.ToLower() + ")";
+                    sb.AppendLine(tocLine);
                 }
-
-                if (qEntityProps.Count() != 0)
-                {
-                    sb.AppendLine("|Property|Value|");
-                    sb.AppendLine("|:-------|:----|");
-
-
-                    foreach (var prop in qEntityProps)
-                    {
-                        // P:Chronozoom.Entities.[member].[prop]
-                        string propName = cleanString(prop.FirstAttribute.Value, entityPropClass + nameString + ".");
-                        sb.AppendLine("|" + propName + "|" + prop.Value.Trim() + "|");
-                    }
-                }
-
-                //sb.AppendLine(" ");
-                //sb.AppendLine("[top](#chronozoom-rest-api-reference)");
-                sb.AppendLine(" ");
-                sb.AppendLine("----------");
-                sb.AppendLine(" ");
             }
 
             return sb.ToString();
         }
 
-        // Clean up name string.
+        // Clean up strings, return only member name.
         static string cleanString(string n, string repl)
         {
             n = n.Replace(repl, "");
-            int i = n.IndexOf("(");
-            if (i > 0)
+            int pStart = n.IndexOf("(");
+
+            if (pStart > 0)
             {
-                n = n.Remove(i);
+                n = n.Remove(pStart);
                 return n;
             }
             else
             {
                 return n;
             }
+        }
+
+        // Clean up strings + params, return method signature.
+        static string cleanStringParams(string n, string repl, StringCollection paramBase)
+        {
+            n = n.Replace(repl, "");
+            int pStart = n.IndexOf("(");
+            int pEnd = n.IndexOf(")");
+            int len = pEnd - pStart;
+            string theParams = "()";
+
+            if (len > 0)
+            {
+                theParams = n.Substring(pStart, len + 1);
+                foreach (string s in paramBase)
+                {
+                    theParams = theParams.Replace(s, "");
+                }
+                theParams = theParams.Replace(",", ", ");
+            }
+
+            if (pStart > 0)
+            {
+                n = n.Remove(pStart);
+            }
+
+            n = n + theParams;
+
+            return n;
         }
 
         // Clean up example code (extra spaces since they are in CDATA in the source).
@@ -280,21 +316,6 @@ namespace xslcon
             return fullExample;
         }
 
-        // Output a table of contents.
-        static string makeToc(string[] input)
-        {
-            StringBuilder sb = new StringBuilder();
-            
-            for (int i = 0; i < input.Length; i++)
-            {
-                string item = input[i].ToString();
-                string tocLine = "- [" + item + "](#" + item.ToLower() + ")";
-                sb.AppendLine(tocLine);
-            }
-
-            return sb.ToString();
-        }
-
         static void makeDoc(string path)
         {
             StringBuilder sb = new StringBuilder();
@@ -306,20 +327,10 @@ namespace xslcon
             //    sb.AppendLine(line);
             //}
 
-            // Get the entity names and add the TOC.
-            //sb.AppendLine("## ChronoZoom Entities ##");
-            //string[] enames = getNames(entityPath, entityTypeRgx, entityTypeClass);
-            //string etoc = makeToc(enames);
-            //sb.AppendLine(etoc);
-
-            // Get the entities and build the reference portion.
-            //string entities = getEntities(entityPath);
-            //sb.AppendLine(entities);
-
             // Get the member names and add the TOC.
             sb.AppendLine("## HomeOS.Hub.Common.DataStore.IStream ##");
-            string[] mnames = getNames(memberPath, memberRgx, memberClass);
-            string mtoc = makeToc(mnames);
+            //string[] mnames = makeToc(memberPath, memberRgx, memberClass);
+            string mtoc = makeToc(memberPath, memberRgx, memberClass);
             sb.AppendLine(mtoc);
 
             // Get the members and build the reference portion.

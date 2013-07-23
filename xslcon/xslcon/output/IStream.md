@@ -1,18 +1,48 @@
 ## HomeOS.Hub.Common.DataStore.IStream ##
-- [Update](#update)
-- [Append](#append)
-- [Get](#get)
-- [GetLatest](#getlatest)
-- [GetAll](#getall)
-- [GetAll](#getall)
-- [GetKeys](#getkeys)
-- [DeleteStream](#deletestream)
-- [GrantReadAccess](#grantreadaccess)
-- [RevokeReadAccess](#revokereadaccess)
-- [Flush](#flush)
-- [Close](#close)
+- [Create()](#create)
+- [Open()](#open)
+- [Update(IKey, IValue)](#update)
+- [Append(IKey, IValue)](#append)
+- [Get(IKey)](#get)
+- [GetLatest()](#getlatest)
+- [GetAll(IKey)](#getall)
+- [GetAll(IKey, Int64, Int64)](#getall)
+- [GetKeys(IKey, IKey)](#getkeys)
+- [DeleteStream()](#deletestream)
+- [GrantReadAccess(String)](#grantreadaccess)
+- [GrantReadAccess(String, String)](#grantreadaccess)
+- [RevokeReadAccess(String)](#revokereadaccess)
+- [RevokeReadAccess(String, String)](#revokereadaccess)
+- [Flush()](#flush)
+- [Close()](#close)
 
-### Update ###
+### Create() ###
+ 
+Creates a new data stream.
+ 
+**Returns**
+A boolean indicating success or failure.
+ 
+**Parameters**
+None.
+ 
+ 
+----------
+ 
+### Open() ###
+ 
+Opens a data stream.
+ 
+**Returns**
+A boolean indicating success or failure.
+ 
+**Parameters**
+None.
+ 
+ 
+----------
+ 
+### Update(IKey, IValue) ###
  
 Modifies the newest entry in a key.
  
@@ -35,7 +65,7 @@ Modifies the newest entry in a key.
  
 ----------
  
-### Append ###
+### Append(IKey, IValue) ###
  
 Appends a new value to a key.
  
@@ -58,7 +88,7 @@ Appends a new value to a key.
  
 ----------
  
-### Get ###
+### Get(IKey) ###
  
 Gets the newest value for the specified key.
  
@@ -81,9 +111,9 @@ An IValue containing the results.
  
 ----------
  
-### GetLatest ###
+### GetLatest() ###
  
-Gets the latest [key, value, timestamp] tuple inserted.
+Gets the newest [key, value, timestamp] tuple inserted.
  
 **Returns**
 The newest tuple (key, value, timestamp) that was inserted.
@@ -101,7 +131,7 @@ None.
  
 ----------
  
-### GetAll ###
+### GetAll(IKey) ###
  
 Get all the [key, value, ts] tuples corresponding to the specified key.
  
@@ -124,7 +154,7 @@ An IEnumerable containing the results.
  
 ----------
  
-### GetAll ###
+### GetAll(IKey, Int64, Int64) ###
  
 Get all the [key, value, timestamp] tuples in the given time range corresponding to the specified key.
  
@@ -149,9 +179,9 @@ An IEnumerable containing the results.
  
 ----------
  
-### GetKeys ###
+### GetKeys(IKey, IKey) ###
  
-Get all keys in the specified key range.
+Get a list of all keys in the specified key range.
  
 **Returns**
 A List containing the results.
@@ -175,7 +205,7 @@ A List containing the results.
  
 ----------
  
-### DeleteStream ###
+### DeleteStream() ###
  
 Deletes the current stream.
  
@@ -185,12 +215,12 @@ None.
  
 ----------
  
-### GrantReadAccess ###
+### GrantReadAccess(String) ###
  
 Grants read access to the app at the specified AppId.
  
 **Returns**
-A boolean indicating whether the operation succeeded.
+A boolean indicating success or failure.
  
 **Parameters**
  
@@ -201,12 +231,29 @@ A boolean indicating whether the operation succeeded.
  
 ----------
  
-### RevokeReadAccess ###
+### GrantReadAccess(String, String) ###
+ 
+Grants read access to the app at the specified HomeId and AppId.
+ 
+**Returns**
+A boolean indicating success or failure.
+ 
+**Parameters**
+ 
+|Parameter|Value|
+|:--------|:----|
+|HomeId|The HomeId of the app to which read access should be granted.|
+|AppId|The AppId of the app to which read access should be granted.|
+ 
+ 
+----------
+ 
+### RevokeReadAccess(String) ###
  
 Revokes read access from the app at the specified AppId.
  
 **Returns**
-A boolean indicating whether the operation succeeded.
+A boolean indicating success or failure.
  
 **Parameters**
  
@@ -217,9 +264,26 @@ A boolean indicating whether the operation succeeded.
  
 ----------
  
-### Flush ###
+### RevokeReadAccess(String, String) ###
  
-Grants write access to the app at the specified AppId.
+Revokes read access from the app at the specified HomeId and AppId.
+ 
+**Returns**
+A boolean indicating success or failure.
+ 
+**Parameters**
+ 
+|Parameter|Value|
+|:--------|:----|
+|HomeId|The HomeId of the app from which read access should be revoked.|
+|AppId|The AppId of the app from which read access should be revoked.|
+ 
+ 
+----------
+ 
+### Flush() ###
+ 
+Flushes the current stream from memory.
  
 **Parameters**
 None.
@@ -227,12 +291,12 @@ None.
  
 ----------
  
-### Close ###
+### Close() ###
  
 Closes the current stream.
  
 **Returns**
-A boolean indicating whether the operation succeeded.
+A boolean indicating success or failure.
  
 **Parameters**
 None.
