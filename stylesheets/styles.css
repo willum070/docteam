@@ -731,11 +731,15 @@ dt {
 #header nav li a {
   color: white;
   border: 1px solid #5d910b;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #93bd20), color-stop(100%, #659e10));
-  background: -webkit-linear-gradient(#93bd20, #659e10);
-  background: -moz-linear-gradient(#93bd20, #659e10);
-  background: -o-linear-gradient(#93bd20, #659e10);
-  background: linear-gradient(#93bd20, #659e10);
+background: #45cd02; /* Old browsers */
+background: -moz-linear-gradient(top,  #45cd02 0%, #3cb201 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45cd02), color-stop(100%,#3cb201)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #45cd02 0%,#3cb201 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #45cd02 0%,#3cb201 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #45cd02 0%,#3cb201 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #45cd02 0%,#3cb201 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45cd02', endColorstr='#3cb201',GradientType=0 ); /* IE6-9 */
+
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
