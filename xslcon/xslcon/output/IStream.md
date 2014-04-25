@@ -1,80 +1,31 @@
-## HomeOS.Hub.Common.DataStore.IStream ##
-- [Create()](#create)
-- [Open()](#open)
-- [Update(IKey, IValue)](#update)
-- [Append(IKey, IValue)](#append)
-- [Get(IKey)](#get)
-- [GetLatest()](#getlatest)
-- [GetAll(IKey)](#getall)
-- [GetAll(IKey, Int64, Int64)](#getall)
-- [GetKeys(IKey, IKey)](#getkeys)
-- [DeleteStream()](#deletestream)
-- [GrantReadAccess(String)](#grantreadaccess)
-- [GrantReadAccess(String, String)](#grantreadaccess)
-- [RevokeReadAccess(String)](#revokereadaccess)
-- [RevokeReadAccess(String, String)](#revokereadaccess)
-- [Flush()](#flush)
-- [Close()](#close)
-
-### Create() ###
+# HomeOS.Hub.Common.DataStore.IStream #
+## Contents ##
+- [Append(IKey, IValue)](#append_1)
+- [Update(IKey, IValue)](#update_2)
+- [Get(IKey)](#get_3)
+- [GetLatest()](#getlatest_4)
+- [GetAll(IKey)](#getall_5)
+- [GetAll(IKey, Int64, Int64)](#getall_6)
+- [GetKeys(IKey, IKey)](#getkeys_7)
+- [DeleteStream()](#deletestream_8)
+- [GrantReadAccess(String)](#grantreadaccess_9)
+- [GrantReadAccess(String, String)](#grantreadaccess_10)
+- [RevokeReadAccess(String)](#revokereadaccess_11)
+- [RevokeReadAccess(String, String)](#revokereadaccess_12)
+- [Flush()](#flush_13)
+- [Close()](#close_14)
  
-Creates a new data stream.
+<a id="append_1"></a>
+## Append(IKey, IValue) ##
  
-**Returns**
-A boolean indicating success or failure.
- 
-**Parameters**
-None.
- 
- 
-----------
- 
-### Open() ###
- 
-Opens a data stream.
- 
-**Returns**
-A boolean indicating success or failure.
- 
-**Parameters**
-None.
- 
- 
-----------
- 
-### Update(IKey, IValue) ###
- 
-Modifies the newest entry in a key.
+Appends a new value to the specified key.
  
 **Example**
 
     IStream datastream;
-    datastream = base.CreateFileStream<StrKey, StrValue>("dumb", false /* remoteSync */);
-    StrKey key = new StrKey("DummyKey");
-    StrValue val = new StrValue("DummyVal");
-    datastream.Put(key, val);
-
- 
-**Parameters**
- 
-|Parameter|Value|
-|:--------|:----|
-|key|The key to update.|
-|value|The value.|
- 
- 
-----------
- 
-### Append(IKey, IValue) ###
- 
-Appends a new value to a key.
- 
-**Example**
-
-    IStream datastream;
-    datastream = base.CreateFileStream<StrKey, StrValue>("dumb", false /* remoteSync */);
-    StrKey key = new StrKey("DummyKey");
-    StrValue val = new StrValue("DummyVal");
+    datastream = base.CreateFileStream<StrKey, StrValue>("myStream", false);
+    StrKey key = new StrKey("myKey");
+    StrValue val = new StrValue("myVal");
     datastream.Append(key, val);
 
  
@@ -88,9 +39,34 @@ Appends a new value to a key.
  
 ----------
  
-### Get(IKey) ###
+<a id="update_2"></a>
+## Update(IKey, IValue) ##
  
-Gets the newest value for the specified key.
+Modifies the newest value for the specified key.
+ 
+**Example**
+
+    IStream datastream;
+    datastream = base.CreateFileStream<StrKey, StrValue>("myStream", false);
+    StrKey key = new StrKey("myKey");
+    StrValue val = new StrValue("myVal");
+    datastream.Put(key, val);
+
+ 
+**Parameters**
+ 
+|Parameter|Value|
+|:--------|:----|
+|key|The key to update.|
+|value|The value.|
+ 
+ 
+----------
+ 
+<a id="get_3"></a>
+## Get(IKey) ##
+ 
+Gets the newest value from the specified key.
  
 **Returns**
 An IValue containing the results.
@@ -98,8 +74,8 @@ An IValue containing the results.
 **Example**
 
     IStream datastream;
-    datastream = base.CreateFileStream<StrKey, StrValue>("dumb", false /* remoteSync */);
-    string result = datastream.Get("DummyKey");
+    datastream = base.CreateFileStream<StrKey, StrValue>("myStream", false);
+    string result = datastream.Get("myKey");
 
  
 **Parameters**
@@ -111,7 +87,8 @@ An IValue containing the results.
  
 ----------
  
-### GetLatest() ###
+<a id="getlatest_4"></a>
+## GetLatest() ##
  
 Gets the newest [key, value, timestamp] tuple inserted.
  
@@ -121,7 +98,7 @@ The newest tuple (key, value, timestamp) that was inserted.
 **Example**
 
     IStream datastream;
-    datastream = base.CreateFileStream<StrKey, StrValue>("dumb", false /* remoteSync */);
+    datastream = base.CreateFileStream<StrKey, StrValue>("myStream", false);
     Tuple result = datastream.GetLatest();
 
  
@@ -131,7 +108,8 @@ None.
  
 ----------
  
-### GetAll(IKey) ###
+<a id="getall_5"></a>
+## GetAll(IKey) ##
  
 Get all the [key, value, ts] tuples corresponding to the specified key.
  
@@ -141,8 +119,8 @@ An IEnumerable containing the results.
 **Example**
 
     IStream datastream;
-    datastream = base.CreateFileStream<StrKey, StrValue>("dumb", false /* remoteSync */);
-    IEnumerable result = datastream.GetAll("DummyKey");
+    datastream = base.CreateFileStream<StrKey, StrValue>("myStream", false);
+    IEnumerable result = datastream.GetAll("myKey");
 
  
 **Parameters**
@@ -154,7 +132,8 @@ An IEnumerable containing the results.
  
 ----------
  
-### GetAll(IKey, Int64, Int64) ###
+<a id="getall_6"></a>
+## GetAll(IKey, Int64, Int64) ##
  
 Get all the [key, value, timestamp] tuples in the given time range corresponding to the specified key.
  
@@ -164,8 +143,10 @@ An IEnumerable containing the results.
 **Example**
 
     IStream datastream;
-    datastream = base.CreateFileStream<StrKey, StrValue>("dumb", false /* remoteSync */);
-    IEnumerable result = datastream.GetAll("DummyKey", ???, ???);
+    datastream = base.CreateFileStream<StrKey, StrValue>("myStream", false);
+    DateTime fromTime = new DateTime(2001, 01, 01, 0, 0, 0, DateTimeKind.Utc);
+    DateTime rightNow = DateTime.UtcNow;
+    IEnumerable result = datastream.GetAll("myKey", fromTime, rightNow);
 
  
 **Parameters**
@@ -173,13 +154,14 @@ An IEnumerable containing the results.
 |Parameter|Value|
 |:--------|:----|
 |key|The key to query.|
-|startTimeStamp|A timestamp indicating the start of the time range.|
-|endTimeStamp|A timestamp indicating the end of the time range.|
+|startTimeStamp|The timestamp at which the range should begin.|
+|endTimeStamp|The timestamp at which the range should end.|
  
  
 ----------
  
-### GetKeys(IKey, IKey) ###
+<a id="getkeys_7"></a>
+## GetKeys(IKey, IKey) ##
  
 Get a list of all keys in the specified key range.
  
@@ -189,7 +171,7 @@ A List containing the results.
 **Example**
 
     IStream datastream;
-    datastream = base.CreateFileStream<StrKey, StrValue>("dumb", false /* remoteSync */);
+    datastream = base.CreateFileStream<StrKey, StrValue>("myStream", false);
     IKey startKey = new IKey("begin");
     IKey endKey = new IKey("end");
     List result = datastream.GetKeys(startKey, endKey);
@@ -199,13 +181,14 @@ A List containing the results.
  
 |Parameter|Value|
 |:--------|:----|
-|startKey|A key indicating the beginning of the key range.|
-|endKey|A key indicating the end of the key range.|
+|startKey|The key at which the range should begin.|
+|endKey|The key at which the range should end.|
  
  
 ----------
  
-### DeleteStream() ###
+<a id="deletestream_8"></a>
+## DeleteStream() ##
  
 Deletes the current stream.
  
@@ -215,7 +198,8 @@ None.
  
 ----------
  
-### GrantReadAccess(String) ###
+<a id="grantreadaccess_9"></a>
+## GrantReadAccess(String) ##
  
 Grants read access to the app at the specified AppId.
  
@@ -231,7 +215,8 @@ A boolean indicating success or failure.
  
 ----------
  
-### GrantReadAccess(String, String) ###
+<a id="grantreadaccess_10"></a>
+## GrantReadAccess(String, String) ##
  
 Grants read access to the app at the specified HomeId and AppId.
  
@@ -248,7 +233,8 @@ A boolean indicating success or failure.
  
 ----------
  
-### RevokeReadAccess(String) ###
+<a id="revokereadaccess_11"></a>
+## RevokeReadAccess(String) ##
  
 Revokes read access from the app at the specified AppId.
  
@@ -264,7 +250,8 @@ A boolean indicating success or failure.
  
 ----------
  
-### RevokeReadAccess(String, String) ###
+<a id="revokereadaccess_12"></a>
+## RevokeReadAccess(String, String) ##
  
 Revokes read access from the app at the specified HomeId and AppId.
  
@@ -281,7 +268,8 @@ A boolean indicating success or failure.
  
 ----------
  
-### Flush() ###
+<a id="flush_13"></a>
+## Flush() ##
  
 Flushes the current stream from memory.
  
@@ -291,7 +279,8 @@ None.
  
 ----------
  
-### Close() ###
+<a id="close_14"></a>
+## Close() ##
  
 Closes the current stream.
  

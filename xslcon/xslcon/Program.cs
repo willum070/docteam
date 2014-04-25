@@ -29,7 +29,7 @@ namespace xslcon
 {
     class MDConverter
     {
-        /* Prefixes, regexes and paths defined in settings.
+        /* Prefixes, regexes and paths are defined in settings.
          * The prefixes are configurable since they could change.
          * The regexes are also configurable and should match
          * their corresponding member prefix string. */
@@ -70,7 +70,8 @@ namespace xslcon
             // Load the XML document.
             XDocument doc = XDocument.Load(path);
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sbToc = new StringBuilder();
+            StringBuilder sbContent = new StringBuilder();
 
             // Get all of the members.
             var qMembers =
@@ -79,70 +80,82 @@ namespace xslcon
                 select
                     member;
 
+            // We're using count to make each link unique.
+            int count = 0;
+            sbToc.AppendLine("## Contents ##");
+
             // Add each member to the doc.
             foreach (var member in qMembers)
             {
-                    sb.AppendLine("### " + cleanStringParams(member.Attribute("name").Value, memberClass, paramBase) + " ###");
-                    sb.AppendLine(" ");
-                    sb.AppendLine(member.XPathSelectElement("summary").Value.Trim());
-                    sb.AppendLine(" ");
+                count += 1;
+                string name = cleanStringParams(member.Attribute("name").Value, memberClass, paramBase);
+                string id = (cleanString(member.Attribute("name").Value, memberClass) + "_" + count).ToLower();
 
-                    if (member.XPathSelectElement("returns") != null)
+                // Add a TOC entry.
+                sbToc.AppendLine("- [" + name + "](#" + id + ")");
+
+                sbContent.AppendLine("<a id=\"" + id + "\"></a>");
+                sbContent.AppendLine("## " + name + " ##");
+                sbContent.AppendLine(" ");
+                sbContent.AppendLine(member.XPathSelectElement("summary").Value.Trim());
+                sbContent.AppendLine(" ");
+
+                if (member.XPathSelectElement("returns") != null)
+                {
+                    sbContent.AppendLine("**Returns**");
+                    sbContent.AppendLine(member.XPathSelectElement("returns").Value.Trim());
+                    sbContent.AppendLine(" ");
+                }
+
+                if (member.XPathSelectElement("example") != null)
+                {
+                    sbContent.AppendLine("**Example**");
+                    string ex = member.XPathSelectElement("example").Value;
+                    ex = cleanExample(ex);
+                    sbContent.AppendLine(ex);
+                    sbContent.AppendLine(" ");
+                }
+
+                var qParams =
+                    from p in member.Descendants("param")
+                    select
+                        p;
+
+                if (qParams.Count() != 0)
+                {
+                    sbContent.AppendLine("**Parameters**");
+                    sbContent.AppendLine(" ");
+                    sbContent.AppendLine("|Parameter|Value|");
+                    sbContent.AppendLine("|:--------|:----|");
+
+                    foreach (var param in qParams)
                     {
-                        sb.AppendLine("**Returns**");
-                        sb.AppendLine(member.XPathSelectElement("returns").Value.Trim());
-                        sb.AppendLine(" ");
+                        sbContent.AppendLine("|" + param.FirstAttribute.Value + "|" + param.Value + "|");
                     }
+                    sbContent.AppendLine(" ");
+                }
+                else
+                {
+                    sbContent.AppendLine("**Parameters**");
+                    sbContent.AppendLine("None.");
+                    sbContent.AppendLine(" ");
+                }
 
-                    if (member.XPathSelectElement("example") != null)
-                    {
-                        sb.AppendLine("**Example**");
-                        string ex = member.XPathSelectElement("example").Value;
-                        ex = cleanExample(ex);
-                        sb.AppendLine(ex);
-                        sb.AppendLine(" ");
-                    }
+                if (member.XPathSelectElement("remarks") != null)
+                {
+                    sbContent.AppendLine("**Remarks**");
+                    sbContent.AppendLine(cleanExample(member.XPathSelectElement("remarks").Value.Trim()));
+                    sbContent.AppendLine(" ");
+                }
 
-                    var qParams =
-                        from p in member.Descendants("param")
-                        select
-                            p;
-
-                    if (qParams.Count() != 0)
-                    {
-                        sb.AppendLine("**Parameters**");
-                        sb.AppendLine(" ");
-                        sb.AppendLine("|Parameter|Value|");
-                        sb.AppendLine("|:--------|:----|");
-
-                        foreach (var param in qParams)
-                        {
-                            sb.AppendLine("|" + param.FirstAttribute.Value + "|" + param.Value + "|");
-                        }
-                        sb.AppendLine(" ");
-                    }
-                    else
-                    {
-                        sb.AppendLine("**Parameters**");
-                        sb.AppendLine("None.");
-                        sb.AppendLine(" ");
-                    }
-
-                    if (member.XPathSelectElement("remarks") != null)
-                    {
-                        sb.AppendLine("**Remarks**");
-                        sb.AppendLine(cleanExample(member.XPathSelectElement("remarks").Value.Trim()));
-                        sb.AppendLine(" ");
-                    }
-
-                    //sb.AppendLine(" ");
-                    //sb.AppendLine("[top](#chronozoom-rest-api-reference)");
-                    sb.AppendLine(" ");
-                    sb.AppendLine("----------");
-                    sb.AppendLine(" ");
+                sbContent.AppendLine(" ");
+                sbContent.AppendLine("----------");
+                sbContent.AppendLine(" ");
             }
 
-            return sb.ToString();
+            sbToc.AppendLine(" ");
+            sbContent.Insert(0, sbToc.ToString());
+            return sbContent.ToString();
         }
 
         // Get all of the entities and return MarkDown.
@@ -220,38 +233,38 @@ namespace xslcon
 
         // Uses Linq to get the names and output as array.
         
-        static string makeToc(string path, Regex rgx, string repl)
-        {
-            // Todo: Now navigation is broken. Re-do this so that we are inserting JQuery to autogenerate a TOC. 
-            // instead of this function.
+        //static string makeToc(string path, Regex rgx, string repl)
+        //{
+        //    // Todo: Now navigation is broken. Re-do this so that we are inserting JQuery to autogenerate a TOC. 
+        //    // instead of this function.
 
-            // Load the XML document.
-            XDocument doc = XDocument.Load(path);
+        //    // Load the XML document.
+        //    XDocument doc = XDocument.Load(path);
 
-            StringBuilder sb = new StringBuilder();
+        //    StringBuilder sb = new StringBuilder();
 
-            // Get all of the names.
-            var query =
-                from member in doc.Descendants("member")
-                select
-                    new XElement("member",
-                                    member.Attribute("name").Value);
+        //    // Get all of the names.
+        //    var query =
+        //        from member in doc.Descendants("member")
+        //        select
+        //            new XElement("member",
+        //                            member.Attribute("name").Value);
 
             
-            // Filter and clean the strings.
-            foreach (var member in query)
-            {
-                if (rgx.IsMatch(member.Value))
-                {
-                    string nDisp = cleanStringParams(member.Value, repl, paramBase);
-                    string nLink = cleanString(member.Value, repl);
-                    string tocLine = "- [" + nDisp + "](#" + nLink.ToLower() + ")";
-                    sb.AppendLine(tocLine);
-                }
-            }
+        //    // Filter and clean the strings.
+        //    foreach (var member in query)
+        //    {
+        //        if (rgx.IsMatch(member.Value))
+        //        {
+        //            string nDisp = cleanStringParams(member.Value, repl, paramBase);
+        //            string nLink = cleanString(member.Value, repl);
+        //            string tocLine = "- [" + nDisp + "](#" + nLink.ToLower() + ")";
+        //            sb.AppendLine(tocLine);
+        //        }
+        //    }
 
-            return sb.ToString();
-        }
+        //    return sb.ToString();
+        //}
 
         // Clean up strings, return only member name.
         static string cleanString(string n, string repl)
@@ -328,10 +341,9 @@ namespace xslcon
             //}
 
             // Get the member names and add the TOC.
-            sb.AppendLine("## HomeOS.Hub.Common.DataStore.IStream ##");
-            //string[] mnames = makeToc(memberPath, memberRgx, memberClass);
-            string mtoc = makeToc(memberPath, memberRgx, memberClass);
-            sb.AppendLine(mtoc);
+            sb.AppendLine("# HomeOS.Hub.Common.DataStore.IStream #");
+            //string mtoc = makeToc(memberPath, memberRgx, memberClass);
+            //sb.AppendLine(mtoc);
 
             // Get the members and build the reference portion.
             string members = getMembers(memberPath);

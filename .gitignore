@@ -93,6 +93,9 @@ DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
 
+# api tool output
+xslcon/xslcon/output/*.*
+
 # Click-Once directory
 publish
 
