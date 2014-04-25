@@ -588,7 +588,7 @@ h3 {
 }
 
 a {
-  color: #ffcc00;
+  color: #f0e7d5;
   font-weight: 400;
   text-decoration: none;
 }
@@ -631,7 +631,7 @@ blockquote {
 }
 
 code {
-  font-family: "Lucida Sans", Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal, monospace;
+  font-family: "Lucida Console", Monaco, Bitstream Vera Sans Mono, Terminal, monospace;
   color: #efefef;
   font-size: 13px;
   margin: 0 4px;
