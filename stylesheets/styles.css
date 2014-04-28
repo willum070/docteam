@@ -890,7 +890,7 @@ section #title .credits.right {
   border: 1px solid #3cb201;
   color: #fff;
   display: block;
-  font: bold 81.25% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font: bold 81.25% Helvetica, Arial, sans-serif;
   margin: 1px 0;
   padding: 10px 50px;
   text-align: center;
