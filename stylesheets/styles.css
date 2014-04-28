@@ -877,7 +877,7 @@ section #title .credits.right {
   top: 40px;
   /* 45 deg ccw rotation */
   -webkit-transform: rotate(-45deg) translate3d( 0, 0, 0);
-     -moz-transform: rotate(-45deg) translate3d( 0, 0, 0);
+     -moz-transform: rotate(-45deg);
       -ms-transform: rotate(-45deg);
        -o-transform: rotate(-45deg);
           transform: rotate(-45deg);
