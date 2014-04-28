@@ -348,8 +348,12 @@ nav ol {
 img {
   border: 0;
   /* 1 */
-  /*-ms-interpolation-mode: bicubic;*/
+  -ms-interpolation-mode: bicubic;
   /* 2 */
+  background:url(codalab-logo.png) 0 0 no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(
+     startColorstr=#00FFFFFF, endColorstr=#00FFFFFF
+  );
 }
 
 /*
