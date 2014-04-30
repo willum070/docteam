@@ -865,6 +865,10 @@ section #title .credits.right {
   }
 }
 
+.shadedbox {
+    background-color: #EBEBEB;
+}
+
 .ribbon {
   background-color: #7FA4C0;
   overflow: hidden;
