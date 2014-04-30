@@ -693,15 +693,6 @@ dt {
   font-weight: normal;
 }
 
-#homeheader {
-  z-index: 100;
-  left: 0;
-  top: 0px;
-  height: 65px;
-  width: 100%;
-  position: fixed;
-}
-
 #header {
   z-index: 100;
   left: 0;
