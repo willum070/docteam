@@ -258,7 +258,7 @@ code,
 kbd,
 samp {
   font-family: WorkAroundWebKitAndMozilla, monospace;
-  _font-family: 'courier new', monospace;
+  _font-family: "Lucida Console", "Monaco", "DejaVu Sans Mono", monospace, 'courier new', monospace;
   font-size: 1em;
 }
 
