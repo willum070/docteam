@@ -17,19 +17,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
   </head>
-  <body>
-    <!--<div id="header">
-    <nav>
-        
-      <header>
-          <li class="fork"><a href="https://github.com/codalab/codalab">View the Project on GitHub</a></li>
-          <li class="downloads"><a href="https://github.com/codalab/codalab/zipball/master">ZIP</a></li>
-          <li class="downloads"><a href="https://github.com/codalab/codalab/tarball/master">TAR</a></li>
-          <li class="title">DOWNLOADS</li>
-      </header>
-    </nav>
-    </div>-->
-    
+  <body>    
     <div class="ribbon">
             <a href="https://github.com/codalab/codalab">Fork CodaLab on GitHub</a>
         </div>
@@ -40,7 +28,7 @@
         <img src="images/codalab-logo.png" />
         <p>An experimental platform for collaboration and competition.</p>
         <hr>
-        <a href="https://www.codalab.org/competitions">Competitions</a>
+        <a class="nav" href="https://www.codalab.org/competitions">Competitions</a>
     </div>
     <h1>Welcome to CodaLab</h1>
         <p>CodaLab is an open-source web-based platform that enables researchers, developers, and data scientists to collaborate, with the goal of advancing research fields where machine learning and advanced computation is used. CodaLab has two main features:</p>
@@ -98,6 +86,16 @@
         var pageTracker = _gat._getTracker("UA-42847758-1");
         pageTracker._trackPageview();
       } catch(err) {}
+    </script>
+    <script type="text/javascript">
+        // Code for buttons
+        $(function () {
+            $("a[type=nav]")
+              .button()
+              .click(function (event) {
+                  event.preventDefault();
+              });
+        });
     </script>
 <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
   </body>
