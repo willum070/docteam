@@ -895,5 +895,3 @@ section #title .credits.right {
   /* shadow */
   text-shadow: 0 0 5px #444;
 }
-
-a.anchor{display: block; position: relative; top: -250px; visibility: hidden;}
