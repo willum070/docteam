@@ -1,0 +1,73 @@
+ <!doctype html>
+<html>
+  <head>
+    <meta charset="windows-1252">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>CodaLab</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+  <div id="header">
+    <nav>
+      <header>
+          <!--<li class="fork"><a href="index.html">HOME</a></li>-->
+          <a href="index.html"><img src="images/codalab-logo-dinky.png" /></a>
+      </header>
+    </nav>
+    </div>
+    <div class="wrapper">
+    <section>
+    <div id="title"><br /></div><!-- leave this here to preserve layout. -->
+    <h2>CodaLab Glossary</h2>
+        <div class="large-9 columns">
+        <a id="bundle" class="anchor"></a>
+        <h3>Bundle</h3>
+        <p>Within CodaLab the basic unit of self-describing storage is referred to as a bundle. A bundle is an immutable directory that can be zipped up into a file that contains a metadata file that describes the contents of the bundle. The <a href="https://github.com/codalab/codalab/blob/master/docs/SPECIFICATION.md">specification for bundles</a> is available in the Github repository. There are currently data bundles, algorithm bundles, run bundles, and competition bundles.</p>
+
+        <a id="competition" class="anchor"></a>
+        <h3>Competition</h3>
+        <p>An organized way for users to upload either a program or a bundle with predictions. An evaluation program will automatically score these predictions against the dataset provided by the competition organizer.</p>
+
+        <a id="run" class="anchor"></a>
+        <h3>Run</h3>
+        <p>A type of Bundle which is equipped with a command-line string that specifies how to execute the code in the Bundle. Execution produces an output directory and various statistics.</p>
+
+        <a id="user" class="anchor"></a>
+        <h3>User</h3>
+        <p>Someone who creates programs, datasets, worksheets, and participates in competitions.</p>
+
+        <a id="worksheet" class="anchor"></a>
+        <h3>Worksheet</h3>
+        <p>Worksheets combine code execution, text, mathematics, plots and rich media into a single document, facilitating collaboration and experimentation.</p>
+
+        <hr />
+    </div>
+   
+    </section>
+      
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    <script type="text/javascript">
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      try {
+        var pageTracker = _gat._getTracker("UA-42847758-1");
+        pageTracker._trackPageview();
+      } catch(err) {}
+    </script>
+<!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+  </body>
+</html>
