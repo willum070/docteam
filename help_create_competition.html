@@ -45,7 +45,7 @@
         <a id="competition-overview" class="anchor"></a>
         <h2>Competition Overview</h2>
         <p>Competitions are conducted in two phases: training and competition. The appropriate data is made available to participants at each phase of the competition. During the training phase, participants have access to training data to refine their algorithms. During the competition phase, participants are provided with competition data to generate results which they can then submit to the competition.</p>
-        <p>To create a competition, you need to create and upload a Competition Bundle. A Competition Bundle is a .zip archive which contains a YAML file that describes the competition and its assets. You can download example competition bundles here: <a href="https://github.com/codalab/competition-examples">https://github.com/codalab/competition-examples</a>. For this tutorial, we will be using <b>example_pi</b> example competition.</p>
+        <p>To create a competition, you need to create and upload a Competition Bundle. A Competition Bundle is a .zip archive which contains a YAML file that describes the competition and its assets. You can download example competition bundles here: <a href="https://github.com/codalab/competition-examples">https://github.com/codalab/competition-examples</a>. For this tutorial, we will be using the <b>example_pi</b> example competition.</p>
         
         <p>The files that make up a competition bundle are as follows:</p>
 
@@ -83,6 +83,10 @@
                 <td>Contains reference data used to score the competition.</td>
             </tr>
             <tr>
+                <td>submission.zip</td>
+                <td>Contains an example of how to format submissions. This is for demonstration purposes only and does not need to be included in the submission.</td>
+            </tr>
+            <tr>
                 <td>logo.jpg</td>
                 <td>A logo or image for the competition.</td>
             </tr>
@@ -111,6 +115,7 @@
   |- overview.html
   |- program.zip
   |- reference.zip
+  |- submission.zip
   |- terms_and_conditions.html
 </code></pre>
         <p><b>Note:</b> There are no .zip archives in the example competition as downloaded. This is so that the files can be properly downloaded. You will need to manually create .zip archives from the program, and reference folders.</p>
@@ -134,11 +139,11 @@
         <pre><code># Build an example competition
 ---
 title: Example Competition
-description: This is a competition to test the competition bundle system. It should be able to create a competition from this bundle.
+description: This is an example competition to demonstrate the competition bundle system. In this competition, the objective is to see who can get closest to Pi.
 image: logo.jpg
 has_registration: True
-end_date: 2013-12-31
-html: 
+end_date: 
+html:
     overview: overview.html
     evaluation: evaluation.html
     terms: terms_and_conditions.html
@@ -147,48 +152,42 @@ phases:
     1:
         phasenumber: 1
         label: "Test"
-        start_date: 2013-06-30
+        start_date: 2014-05-01
         max_submissions: 100
         scoring_program: program.zip
         reference_data: reference.zip
         datasets: 
             1:
-                name: Data 1
-                url: http://spreadsheets.google.com/pub?key=pyj6tScZqmEfbZyl0qjbiRQ&output=xls
-                description: Example Dataset
+                name: Test Data
+                url: http://www.bing.com/
+                description: Testing data set.
             2:
-                name: Data 2
-                url: http://spreadsheets.google.com/pub?key=0AgogXXPMARyldGJqTDRfNHBWODJMRWlZaVhNclhNZXc&output=xls 
-                description: Example Dataset
+                name: Final Data
+                url: http://www.bing.com/
+                description: Competition data set.
     2:
-        phasenumber: 2
+        phasenumber: 2 
         label: "Training"
-        start_date: 2013-08-30
+        start_date: 2014-06-01
         max_submissions: 3
         scoring_program: program.zip
         reference_data: reference.zip
     3:
         phasenumber: 3
         label: "Challenge"
-        start_date: 2013-09-30
+        start_date: 2014-07-01
         max_submissions: 3
         scoring_program: program.zip
         reference_data: reference.zip
-        datasets: 
-            1:
-                name: Challenge Data
-                url: http://spreadsheets.google.com/pub?key=t9GL1nIZdtxszJbjKErN2Hg&output=xls
-                description: Example challenge data
 leaderboard:
     leaderboards:
-        RESULTS: &RESULTS
+        Results: &RESULTS
             label: Results
             rank: 1
     columns:
         Difference:
-            group: *RESULTS
+            leaderboard: *RESULTS
             label: Difference
-            rank: 1
             numeric_format: 6
 </code></pre>
 
@@ -208,20 +207,16 @@ leaderboard:
 
         <p>Here are the contents of the program.zip file</p>
         <pre><code>program.zip
-  |- evaluate.exe (The program that is run)
-  |- metadata     (see below for contents)
-  |- supporting modules and libraries for evaluate.exe to run in isolation.
-</code></pre>
-
-        <p>The program.zip metadata file contains:</p>
-        <pre><code>command: $program/evaluate.exe $input $output
-description: Example competition evaluation program.
+  |- evaluate.py (The evaluation program code)
+  |- setup.py (Enables py2exe to build a windows executable from evaluate.py)
+  |- metadata (Contains a definition of the command syntax, and descriptive text)
+  |- readme.txt (Contains information explaining the evaluation program)
 </code></pre>
 
         <p>
-            1. Add the contents of the example program and reference folders to individual ZIP archives. Using our <a href="#example-project-file-structure">example competition files</a>, zip the contents of the following folders:
-        <pre><code>C:\MyCompetition\reference -&gt; reference.zip
-C:\MyCompetition\program -&gt; program.zip
+            1. Add the contents of the <b>program</b>, <b>reference</b>, and <b>submission</b> folders to individual ZIP archives. Using our <a href="#example-project-file-structure">example competition files</a>, zip the contents of the following folders:
+        <pre><code>C:\example_pi\program -&gt; program.zip
+C:\example_pi\reference -&gt; reference.zip
 </code></pre>
         </p>
         <p>2. Create a .zip archive of C:\MyCompetition. This will be known as the "competition bundle".</p>
