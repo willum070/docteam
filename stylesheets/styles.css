@@ -944,7 +944,7 @@ section #title .credits.right {
     padding-left: 14px;
 }
 
-.tiny {
+.tiny span {
     font-size:xx-small;
     vertical-align: super;
 }
