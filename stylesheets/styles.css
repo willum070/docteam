@@ -939,6 +939,6 @@ section #title .credits.right {
     float: right;
 }
 
-.footerlinks a:link a:hover {
-    color: white;
+.footerlinks a {
+    color: #FFFFFF;
 }
