@@ -941,7 +941,8 @@ section #title .credits.right {
 
 .footerlinks a {
     color: #FFFFFF;
-    padding-left: 14px;
+    padding-left: 7px;
+    padding-right: 7px;
 }
 
 .tiny {
