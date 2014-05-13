@@ -867,6 +867,7 @@ section #title .credits.right {
     background-color: #EBEBEB;
 }
 
+/* Fork me on Github */
 .ribbon {
   background-color: #7FA4C0;
   overflow: hidden;
@@ -921,4 +922,14 @@ section #title .credits.right {
     border-right: 0px solid white;
     border-top: 0px solid white;
     border-bottom: 0px solid white;
+}
+
+/* Footer */
+.footer {
+    color: white;
+    font-size: small;
+    clear: both;
+    position: relative;
+    height: 25px;
+    background: #4AA5CB;
 }
