@@ -902,7 +902,7 @@ section #title .credits.right {
 /* Table classes for index.html */
 .idxtable {
     border-collapse: collapse;
-    border: 0px 0px 0px 0px;
+    border: 0px solid white;
 }
 
 .idxtdleft {
