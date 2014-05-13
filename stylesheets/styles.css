@@ -898,3 +898,19 @@ section #title .credits.right {
   /* shadow */
   text-shadow: 0 0 5px #444;
 }
+
+/* Table classes for index.html */
+.idxtable {
+    
+}
+
+.idxtdleft {
+    width: 50%; 
+    vertical-align: top;
+}
+
+.idxtdright {
+    width: 50%;
+    vertical-align: top;
+    border-left: 1px solid;
+}
