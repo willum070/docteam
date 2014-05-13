@@ -936,6 +936,9 @@ section #title .credits.right {
 }
 
 .footerlinks {
-    text-align: right;
+    float: right;
+}
+
+.footerlinks a:link a:hover {
     color: white;
 }
