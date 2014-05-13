@@ -931,5 +931,13 @@ section #title .credits.right {
     clear: both;
     position: relative;
     height: 25px;
-    background: #0083B9; 
+    background: #0083B9;
+    padding: 3px;
+}
+
+.inline-list > li {
+list-style: none;
+float: left;
+margin-left: 1.375em;
+display: block;
 }
