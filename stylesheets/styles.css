@@ -934,3 +934,8 @@ section #title .credits.right {
     background: #0083B9;
     padding: 3px;
 }
+
+.footerlinks {
+    text-align: right;
+    color: white;
+}
