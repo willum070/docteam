@@ -943,3 +943,8 @@ section #title .credits.right {
     color: #FFFFFF;
     padding-left: 14px;
 }
+
+.tiny {
+    font-size:xx-small;
+    vertical-align: center;
+}
