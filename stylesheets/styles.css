@@ -929,7 +929,9 @@ section #title .credits.right {
     color: white;
     font-size: small;
     clear: both;
-    position: relative;
+    position: fixed;
+    bottom: 0px;
+    width: 650px;
     height: 25px;
     background: #0083B9;
     padding: 3px;
