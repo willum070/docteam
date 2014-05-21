@@ -954,3 +954,8 @@ a.nav-small {
     font-size: small;
     color: white;
 }
+
+.navhead {
+    position: relative;
+    top: -6px;
+}
