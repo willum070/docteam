@@ -949,3 +949,8 @@ section #title .credits.right {
     font-size:xx-small;
     vertical-align: super;
 }
+
+.nav-small #header {
+    font-size: small;
+    color: white;
+}
