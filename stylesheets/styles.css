@@ -924,6 +924,11 @@ section #title .credits.right {
     border-bottom: 0px solid white;
 }
 
+.idxtd {
+    border: 0px solid white;
+    vertical-align: top;
+}
+
 /* Footer */
 .footer {
     color: white;
