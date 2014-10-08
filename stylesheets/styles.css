@@ -352,6 +352,10 @@ img {
   /* 2 */
 }
 
+v-center {
+    display: inline-block;
+    vertical-align: middle;
+}
 
 /*
  * Corrects overflow displayed oddly in IE9
