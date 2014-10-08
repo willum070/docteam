@@ -352,10 +352,12 @@ img {
   /* 2 */
 }
 
+/* moved from styles.css */
 .cl-logo {
     padding: 9px 100px 0 14px;
 }
 
+/* moved from codalab.css */
 .name {
     height: 49px;
     margin: 0;

@@ -123,6 +123,7 @@ nav.top-bar section.top-bar-section ul.right {
   color: white;
   background: white;
   vertical-align: text-bottom;
+  padding-bottom: 25px;
 }
 
 /* line 134, ../sass/_settings.scss */
