@@ -983,8 +983,8 @@ a.nav-small {
     top: -6px;
 }
 
-/* 'imported' from codalab.css */
-
+/* 'imported' from codalab.css. Not sure if it's worth the effort. */
+ /*
 header {
     position: fixed;
     left: 0;
@@ -1035,4 +1035,4 @@ div {
 .right {
     float: right !important;
 }
-
+*/
