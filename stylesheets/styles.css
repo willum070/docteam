@@ -965,6 +965,7 @@ section #title .credits.right {
     color: #FFFFFF;
     padding-left: 7px;
     padding-right: 7px;
+    font-weight: normal;
 }
 
 .tiny {
