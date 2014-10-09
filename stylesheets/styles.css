@@ -983,3 +983,7 @@ a.nav-small {
     top: -6px;
 }
 
+.top-bar .title-area {
+    float: right;
+  }
+
