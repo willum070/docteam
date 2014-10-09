@@ -5287,10 +5287,10 @@ label.error {
   .top-bar .toggle-topbar {
     display: none;
   }
-  /* line 378, ../sass/foundation/components/_top-bar.scss 
+  /* line 378, ../sass/foundation/components/_top-bar.scss */
   .top-bar .title-area {
     float: left;
-  }*/
+  }
   /* line 379, ../sass/foundation/components/_top-bar.scss */
   .top-bar .name h1 a {
     width: auto;
