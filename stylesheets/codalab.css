@@ -5341,11 +5341,11 @@ label.error {
   }
   /* line 417, ../sass/foundation/components/_top-bar.scss */
   .top-bar-section li a:not(.button) {
-    padding: 0 16.33333px;
-    line-height: 44px;
+    /* padding: 0 16.33333px; */
+    /* line-height: 44px; */
     height: 47px;
     background: white;
-    border-top: 4px white solid;
+    /* border-top: 4px white solid; */
   }
   /* line 423, ../sass/foundation/components/_top-bar.scss */
   .top-bar-section li a:not(.button).hover {
