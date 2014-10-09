@@ -983,3 +983,56 @@ a.nav-small {
     top: -6px;
 }
 
+/* 'imported' from codalab.css */
+
+header {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+div {
+    padding: 0;
+    font: inherit;
+    display: block;
+}
+
+.top-bar {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: white;
+    height: 49px;
+    border-bottom: 2px #CCC solid;
+}
+
+.top-bar .title-area {
+    float: left;
+    position: relative;
+    margin: 0;
+}
+
+.top-bar .ul {
+    line-height: 1.6em;
+}
+
+.top-bar .li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.top-bar-section ul {
+    width: auto;
+    height: auto !important;
+    display: inline;
+}
+
+.right {
+    float: right !important;
+}
+
