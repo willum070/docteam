@@ -2413,7 +2413,7 @@ a {
   color: #676278;
   text-decoration: none;
   line-height: inherit;
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 /* line 158, ../sass/foundation/components/_type.scss */
 a:hover, a:focus {
